@@ -1,0 +1,14 @@
+    body {
+        /* background-image: url(https://wallpaperstock.net/wallpapers/thumbs1/13506.jpg); */
+        background-image: url(https://wallpaperstock.net/si%C3%A9ntelo-excepcional-verde-wallpapers_2988_1600x1200.jpg);
+        /* background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1408/fresh_green_leaves_of_plants_Wallpaper_07_1366x768.jpg); */
+    }
+    
+    h1 {
+        color: rgb(79, 42, 165);
+    }
+    
+    .img-fluid {
+        max-width: 100%;
+        height: auto;
+    }

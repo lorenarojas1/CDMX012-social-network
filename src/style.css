@@ -1,14 +1,113 @@
-    body {
-        /* background-image: url(https://wallpaperstock.net/wallpapers/thumbs1/13506.jpg); */
-        background-image: url(https://wallpaperstock.net/si%C3%A9ntelo-excepcional-verde-wallpapers_2988_1600x1200.jpg);
-        /* background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1408/fresh_green_leaves_of_plants_Wallpaper_07_1366x768.jpg); */
-    }
-    
-    h1 {
-        color: rgb(79, 42, 165);
-    }
-    
-    .img-fluid {
-        max-width: 100%;
-        height: auto;
-    }
+body {
+    font-family: 'Playfair Display', serif;
+    padding: 0px;
+    margin: 0px;
+    /* background-image: url(https://wallpaperstock.net/wallpapers/thumbs1/13506.jpg); */
+    background-image: url(https://wallpaperstock.net/si%C3%A9ntelo-excepcional-verde-wallpapers_2988_1600x1200.jpg);
+    /* background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1408/fresh_green_leaves_of_plants_Wallpaper_07_1366x768.jpg); */
+}
+
+.title {
+    text-align: center;
+    color: rgb(79, 42, 165);
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.welcomeParagraph {
+    padding-bottom: 150px;
+}
+
+.logInEmail,
+.singInEmail {
+    width: 80%;
+    font-size: 16px;
+    margin: 0px auto;
+    margin-top: 150px;
+    padding: 20px;
+    /* padding-top: 10px; */
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+}
+
+.welcomeContent {
+    width: 60%;
+    font-size: 16px;
+    margin: 0px auto;
+    margin-top: 0px;
+    padding: 0px;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+}
+
+.inputEmail,
+.inputPasswordEmail,
+.inputConfirmPasswordEmail {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    padding: 15px;
+    outline: none;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.inputEmail:focus,
+.inputPasswordEmail:focus,
+.inputConfirmPasswordEmail:focus {
+    border: 2px solid #999;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+}
+
+.questionPassword {
+    margin-top: 0px;
+    margin-bottom: 45px;
+}
+
+.logInWith {
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 45px;
+}
+
+#btnLogIn,
+#btnSingIn,
+#buttonLogIn,
+#buttonSingIn {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    background: #5d8ffc;
+    color: #fff;
+    border: 0px;
+    border-radius: 5px;
+    border: 1px solid #5d8ffc;
+    padding: 15px;
+    outline: none;
+    margin-bottom: 20px;
+    width: 100%;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+}
+
+#btnLogIn:hover,
+#btnSingIn:hover,
+#buttonLogIn:hover,
+#buttonSingIn:hover {
+    background: rgb(71, 99, 226);
+    color: #070e1f;
+    border: 1px solid #0d1016;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.linea {
+    border-top: 1px solid black;
+}

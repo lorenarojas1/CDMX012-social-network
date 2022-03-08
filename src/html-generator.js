@@ -3,25 +3,32 @@ export function logInHtml() {
 
    
     <section class="logInEmail">
-      <input type="email" class="inputEmail" id="inputEmail" placeholder="Correo Electrónico">
-      <input type="password" class="inputPasswordEmail" id="passwordEmail" placeholder="Contraseña">
-      <p class="questionPassword">¿Olvidaste tu contraseña?</p>
-      <button type="button" class="logIn" id="buttonLogIn">Iniciar sesión</button>
-      <p class="questionLogIn">¿No tienes una cuenta?  <a href="#">Registrate</a></p>
-      <div class="linea"></div>
-      <p class="logInWith">O ingresa con</p>
+    
+      <input type='email' class='inputEmail' id='inputEmail' placeholder='Correo Electrónico'>
+      <input type='password' class='inputPasswordEmail' id='passwordEmail' placeholder='Contraseña'>
+      <p class='questionPassword'>¿Olvidaste tu contraseña?</p>
+      <button type='button' class='logIn' id='buttonLogIn'>Iniciar sesión</button>
+      <p class='questionLogIn' id='linkSingIn'>¿No tienes una cuenta?  <a  href='#'>Registrate</a></p>
+      <div class='linea'></div>
+      <p class='logInWith'>O ingresa con</p>
     </section>
     `;
 }
 
 export function singInHtml() {
   return /* html */ `
-
-    
       <section class="singInEmail">
+      <div class='inputEmailContent'>
       <input type="email" class="inputEmail" id="inputEmail" placeholder="Correo Electrónico">
+      <span class="error" id="error-email"></span>
+      </div>
+      <div class='inputPassEmailContent' >
       <input type="password" class="inputPasswordEmail" id="passwordEmail" placeholder="Contraseña">
+      <span class="error" id="error-password"></span>
+      </div>
+      <div class='inputConfirmPassContent'>
       <input type="password" class="inputConfirmPasswordEmail" id="confirmPasswordEmail" placeholder="Confirmar Contraseña">
+      </div>
       <div class="privacyTerms">
         <label>
           <input type="checkbox" class="checkboxPrivacyTerms" id="checkboxPrivacyTerms" value="acceptPrivacyTerms">
@@ -29,8 +36,8 @@ export function singInHtml() {
         </label>
       </div>
       <button type="button" class="singIn" id="buttonSingIn">Registrarse</button>
-      <p class="questionSingIn">¿Tienes una cuenta?</p>
-      <p>Inicia sesión</p>
+      <p class="questionSingIn" id='linkLogIn'>¿Tienes una cuenta? <a href="#">Inicia sesión</a></p>
+      
       <div class="linea"></div>
       <p class="signInWith">O registrate con</p>
     </section>

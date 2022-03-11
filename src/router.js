@@ -1,6 +1,7 @@
 import welcome from './views/welcome.js';
 import signin from './views/signin.js';
 import login from './views/login.js';
+import home from './views/home.js';
 import playing from './views/playing.js'
 import { navigateTo } from './lib/navigator.js';
 
@@ -8,6 +9,7 @@ const routes = {
   '/': welcome,
   '/signin': signin,
   '/login': login,
+  '/home': home,
   '/playing': playing,
 };
 

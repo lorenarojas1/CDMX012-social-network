@@ -23,6 +23,9 @@ section{
 .title{
 
 }
+.welcomeButton{
+  width:80%;
+}
 </style>
 `;
 

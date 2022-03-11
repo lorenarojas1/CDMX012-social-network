@@ -23,8 +23,9 @@ const view = /* html */ `
       <div><input type="password" name="confirmPassword"></div>
     </div>
     <div class="form-group">
-      <button type="submit">Registrarse</button>
+      <button type="submit" id="buttonSingIn">Registrarse</button>
     </div>
+    <span id='mensajeError'></span>
   </form>
   <div>¿Ya tienes una cuenta? <a href="#" id='login-link'>Inicia sesión</a></div>
 </div>
@@ -76,7 +77,7 @@ function getFormData() {
     confirmPassword: confirmPasswordInput.value,
   };
 }
-
+const expRegEmail = (/^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/);
 /**
  * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
  * @param {event} e evento submit
@@ -84,15 +85,36 @@ function getFormData() {
 async function attemptSignIn(e) {
   e.preventDefault();
   const formData = getFormData();
+  console.log(formData);
+
+  //  const dataValidation (formData.email, formData.password, formData.confirmPassword){
+  //   if ((formData.email&&formData.password&&formData.confirmPassword)===''){
+  //     return console.log('Llene todos los campos')
+  //   } else if (formData.email!= expRegEmail){
+  //         return console.log('Formato de correo invalido');
+  //   } else if (formData.password.length<6){
+  //     return console.log('La contraseña debe contener por lo menos 6 caracteres');
+  //   } else if(formData.password.includes(' ')){
+  //     return console.log('La contrseña no puede incluir espacios vacios');
+  //   }else if(formData.password!=formData.confirmPassword){
+  //     return console.log('Las contraseñas no son iguales');
+  //   }else{
+  //     return console.log('Los datos fueron enviados');
+  //   }
+
+  // }
   // TODO: validar formData sea valido segun reglas de registro
   // TODO: mostrar mesajes de error si los datos son invalidos
-  const user = await signInFirebase(formData.email, formData.password);
-  // TODO: verificar si firebase regresó error y mostrarlo
-  console.log(user);
+  try {
+    await signInFirebase(formData.email, formData.password);
+  } catch (error) {
+    console.error(`No se pudo hacer registro, code=${error.code}, message=${error.messaage}`);
+    const messageError = document.getElementById('mensajeError');
+    messageError.innerHTML = 'No se pudo realizar el registro';
+    return;
+  }
 
-  // despues que el registro fue exitoso, cambiar de vista
-  navigateTo('/');// afterRender: () => {
-
+  navigateTo('/home');
 }
 
 /**
@@ -102,5 +124,6 @@ export default {
   render: () => view,
   afterRender: () => {
     document.getElementById('login-link').addEventListener('click', () => navigateTo('/login'));
+    document.querySelector('form').addEventListener('submit', attemptSignIn);
   },
 };

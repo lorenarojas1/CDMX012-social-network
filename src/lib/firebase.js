@@ -47,11 +47,9 @@ onAuthStateChanged(auth, (user) => {
     const tenantId = user.tenantId;
 
     console.log(user);
-    document.getElementById('logInMessage').innerHTML = `Registrado ${user.email}`;
     userActual = user;
   } else {
     // User is signed out
-    document.getElementById("logInMessage").innerHTML = "No registrado"
     userActual = undefined;
   }
 });
@@ -59,7 +57,7 @@ onAuthStateChanged(auth, (user) => {
 
 export const userState = () => userActual;
 
-export const signIn = (email, password) => {
+export const signInFirebase = (email, password) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in
@@ -74,7 +72,7 @@ export const signIn = (email, password) => {
 }
 
 
-export const logIn = (email, password) => {
+export const logInFirebase = (email, password) => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in

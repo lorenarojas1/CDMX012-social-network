@@ -70,9 +70,4 @@ export const signInFirebase = (email, password) =>
 
 
 export const logInFirebase = (email, password) => signInWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => userCredential.user)
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    return error;
-  });
+  .then((userCredential) => userCredential.user);

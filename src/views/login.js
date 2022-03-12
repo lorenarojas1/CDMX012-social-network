@@ -4,16 +4,16 @@ import { navigateTo } from '../lib/navigator.js';
 const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
 
 const view = /* html */ `
-<section class="logInEmail">
+<section class="logInEmail" id="login-wrapper">
     <form>
-       <div class='inputLogInEmail'>
+       <div class="input-email">
            <input type='email' class='inputEmail' id='inputEmail' name='email' placeholder='Correo Electrónico'>
+       </div>  
            <span id="error-email"></span>
-
+       <div class="input-password">
            <input type='password' class='inputPasswordEmail' id='passwordEmail' name='password' placeholder='Contraseña'>
-           <span id="error-password"></span>
-
-        </div>
+       </div>
+          <span id="error-password"></span>
         <p class='questionPassword'>¿Olvidaste tu contraseña?</p>
   
         <div class='buttonLogInEmail'>
@@ -27,38 +27,43 @@ const view = /* html */ `
       </section>
 
       <style>
-.logInEmail{
-  width:70%;
-  flex-wrap: wrap;
-  align-items: center;
-  margin: 45% 15% 15% 15%;
+#login-wrapper {
+  width:80%;
+  margin-top: 200px;
+
+
   }
 
-  .questionPassword{
+#login-wrapper .questionPassword{
     margin-top:0px;
-    margin-left: 20px;
     font-size: 15px;
   }
 
-input.inputEmail, input.inputPasswordEmail{
-  display: block;
-    font-family: 'Playfair Display', serif;
+  #login-wrapper .input-email, #login-wrapper .input-password{
+
     border: 2px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
     background: #fff;
     padding: 15px;
     outline: none;
     width: 100%;
     margin-top: 20px;
-  <!-- width: 100%;
+    font-size: 18px;
+    color: #070e1f;
+  }   
+
+  #login-wrapper #buttonLogIn{
+    
+    width: 100%;
    border-radius: 10px;
    background: #74C3FC;
    font-size: 18px;
    margin: 10px;
-   padding: 3px;
+   padding: 10px;
    color: #070e1f;
-   border: solid 2px #36a5f5; -->
+   border: solid 2px #36a5f5;
 }
+  }
 
 
       </style>

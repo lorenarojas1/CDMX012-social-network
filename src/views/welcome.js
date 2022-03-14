@@ -5,7 +5,8 @@ const view =/* html */ `
   <div class="text-welcome">
     <h1 class="title">Terranova</h1>
     <div class="welcomeParagraph">
-      <p>Un espacio que abrirá tu mente hacia una perspectiva sustentable</p>
+      <p>Un espacio que abrirá tu mente hacia una perspectiva sustentable, donde podras compartir tus ideas y experiencias. 
+      Así como aprender sobre los temas que más te interesen.</p>
     </div>
   </div>
   <div class="welcomeContent" id="welcomeContent">
@@ -35,11 +36,11 @@ margin: 15%;
 
 #welcome-wrapper .welcomeButton{
 display:block;
-margin-top: 200px;
+margin-top: 130px;
  }
 
- #welcome-wrapper .welcomeButton .logIn,
- #welcome-wrapper .welcomeButton .singIn{
+ #welcome-wrapper .logIn,
+ #welcome-wrapper .singIn{
    width: 100%;
    border-radius: 10px;
    background: #74C3FC;
@@ -50,8 +51,8 @@ margin-top: 200px;
    border: solid 2px #36a5f5;
 }
 
-#welcome-wrapper .welcomeButton .logIn:hover,
-#welcome-wrapper .welcomeButton .singIn:hover{
+#welcome-wrapper .logIn:hover,
+#welcome-wrapper .singIn:hover{
     background: #22a3ff;
     color: #e3f2fd;
     border: 2px solid #215f8d;

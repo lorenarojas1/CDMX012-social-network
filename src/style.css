@@ -2,7 +2,12 @@ body {
     font-family: 'Playfair Display', serif;
     padding: 0;
     margin: 0; 
-    display: block; 
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+   
+
        /* background-image: url(https://wallpaperstock.net/wallpapers/thumbs1/13506.jpg); */
     /* background-image: url(https://wallpaperstock.net/si%C3%A9ntelo-excepcional-verde-wallpapers_2988_1600x1200.jpg); */
     background-image: url(https://i.pinimg.com/564x/0f/cc/9a/0fcc9abc307ca8088c02c0f17330fec3.jpg);
@@ -14,97 +19,9 @@ body {
     color: rgb(14, 31, 51);
     font-size: 40px;
 }
-
- /* .welcomeParagraph {
-    padding-bottom: 150px;
-}
-
 .img-fluid {
     max-width: 100%;
     height: auto;
+   
 } 
-
- .welcomeContent {
-    width: 60%;
-    font-size: 16px;
-    margin: 0px auto;
-    margin-top: 0px;
-    padding: 0px;
-    font-weight: 700;
-    font-family: 'Playfair Display', serif;
-} */
-
-
-.inputEmail,
-.inputPasswordEmail,
-.inputConfirmPasswordEmail {
-    display: block;
-    font-family: 'Playfair Display', serif;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    background: #fff;
-    padding: 15px;
-    outline: none;
-    width: 100%;
-    margin-top: 20px;
-} 
-/* 
-.error {
-    color: red;
-}
-
-.inputEmail:focus,
-.inputPasswordEmail:focus,
-.inputConfirmPasswordEmail:focus {
-    border: 2px solid #999;
-    transition: 0.3s;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-}
-
-.questionPassword {
-    margin-top: 0px;
-    margin-bottom: 45px;
-}
-
-.logInWith {
-    text-align: center;
-    margin-top: 0px;
-    margin-bottom: 45px;
-} 
-
-
- #btnLogIn,
-#btnSingIn,
-#buttonLogIn,
-#buttonSingIn {
-    display: block;
-    font-family: 'Playfair Display', serif;
-    background: #5d8ffc;
-    color: #fff;
-    border: 0px;
-    border-radius: 5px;
-    border: 1px solid #5d8ffc;
-    padding: 15px;
-    outline: none;
-    margin-bottom: 20px;
-    width: 100%;
-    transition: 0.3s;
-    -webkit-transition: 0.3s;
-    -moz-transition: 0.3s;
-} 
-
-#btnLogIn:hover,
-#btnSingIn:hover,
-#buttonLogIn:hover,
-#buttonSingIn:hover {
-    background: rgb(71, 99, 226);
-    color: #070e1f;
-    border: 1px solid #0d1016;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.linea {
-    border-top: 1px solid black;
-}  */
+ 

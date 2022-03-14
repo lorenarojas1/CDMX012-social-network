@@ -10,58 +10,115 @@ const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(
 const view = /* html */ `
 <div class="signin-wrapper">
   <form>
-    <h2>Registrase</h2>
-    <div class="form-group">
-      <div><label>Dirección de email *</label></div>
-      <div><input type="email" name="email"></div>
-      <span id="error-email"></span>
+      <div class="input-email">
+         <div><input type="email" name="email" placeholder='Correo Electrónico'></div>
+         <span class="error" id="error-email">&nbsp;</span>
+      </div>
+      <div class="input-email">
+         <div><input type="password" name="password" placeholder='Contraseña'></div>
+         <span class="error" id="error-password">&nbsp;</span>
+       </div>
+       <div class="input-email">
+         <div><input type="password" name="confirmPassword" placeholder='Confirma tu contraseña'></div>
+         <span class="error" id="error-confirmPassword">&nbsp;</span>
+      </div>
+      <div class="form-group">
+         <button type="submit" id="buttonSingIn">Registrarse</button>
+         <span class="error" id="mensajeError">&nbsp;</span>
+      </div>
+  </form> 
+    <div class='question'>¿Ya tienes una cuenta? <em><a href="#" id='login-link'>Inicia sesión</a></em></div>
+ 
+    <div class="separador">
+       <div class='linea-uno'></div>
+       <p class='signInWith'>O ingresa con</p>
+       <div class='linea-dos'></div>
     </div>
-    <div class="form-group">
-      <div><label>Contraseña *</label></div>
-      <div><input type="password" name="password"></div>
-      <span id="error-password"></span>
-    </div>
-    <div class="form-group">
-      <div><label>Confirma tu contraseña *</label></div>
-      <div><input type="password" name="confirmPassword"></div>
-      <span id="error-confirmPassword"></span>
-    </div>
-    <div class="form-group">
-      <button type="submit" id="buttonSingIn">Registrarse</button>
-    </div>
-    <span id="mensajeError"></span>
-  </form>
-  <div>¿Ya tienes una cuenta? <a href="#" id='login-link'>Inicia sesión</a></div>
+    <img class="img-fluid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVlJREFUSEvNlYExBEEQRd9lIANEQAbIgAgQwREBIkAGREAGiIDLgAyIgHpqRrUxO7N3Vaeuq7bqamfu/+7+3X8nLDkmS8ZnJQh2gR1gOz1rwEt6roHXVhdaFQh0CRx12ngPHAPvtXtDBGZ7B2yM1MhKTsYSmPnzAPhTArFlOW5bVdYquAEOA8BHArAVMc4Bk6lmni+WBAr6UID7TlEXipLArM4C0gFQZj4XUUnwmEZyqELfe+ezwXIaKy4JnOn19GcFtT1ltMC9ewHYie/4d4KxLYpVOUlbQ7r1RLafVx1VPZ+GO5vRPnpj6vrvNcbUjXesrcJ4Kxe0tmhlRpIomnYQQ4/SqzK4Z3qSi/oTNYLslnma4n0XTsLadM2S2/7KomV2LliNpCaJ4JL+cdSeXduaKGANXLPTj+ay6wikkPtJPH/bQhfSkbbfC39wOtM57nglvsnjUh249QX0WEAZ2ArXmQAAAABJRU5ErkJggg=="/>
+
 </div>
 
 <style>
 .signin-wrapper {
-  background-color: #DAE4FF;
-  border-radius: 1.5em;
-  max-width: 30em;
-  padding: 1em;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width:100%;
+  margin-top: 200px;
 }
+.signin-wrapper .question{
+    margin-top:0px;
+    font-size: 15px;
+    display: contents;
+  }
 .signin-wrapper input {
-  padding: 1em;
-  border-radius: 1.5em;
-  background-color: white;
-  border: 0;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background: #fff;
+    padding: 15px;
+    font-size: 18px;
+    color: #070e1f;
 }
-.signin-wrapper button {
-  padding: 1em;
-  border-radius: 1.5em;
-  display: inline-block;
-  background-color: #B76CE3;
-  color: white;
-  border: 0;
+.signin-wrapper input:focus {
+    border: 2px solid #949292 ;
+    outline:none;
+    transition: 0.3s;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+
 }
-.signin-wrapper .form-group {
-  padding: .25em;
+
+.signin-wrapper #buttonSingIn {
+  width:100%;
+    padding: 15px;
+    border-radius: 10px;
+   background: #74C3FC;
+   font-size: 18px;
+   color: #070e1f;
+   border: solid 2px #36a5f5;
+}
+
+.signin-wrapper #buttonSingIn:hover {
+  background: #22a3ff;
+    color: #e3f2fd;
+    border: 2px solid #215f8d;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signin-wrapper .separador{
+  display: flex;
+  justify-content: space-between;
+}
+
+.signin-wrapper .linea-uno,.signin-wrapper .linea-dos{
+  width: 40%;
+  border-top: 1px solid black;
+  margin-top: 50px;
+  padding:5px;
+}
+
+.signin-wrapper .signInWith{
+  width:20%;
+  padding:5px;
+  text-align: center;
+}
+.signin-wrapper .img-fluid {
+    display: flex;
+    justify-content: center;
+    margin: 0 45% 0 45%;
+}
+
+.signin-wrapper .error {
+    color: red;
+    margin-top:0px;
+    font-size: 15px;
+    display: block;
+    width: 100%;
+}
+@media only screen and (min-width: 768px) {
+
+
+
+
+  
 }
 </style>
 `;
@@ -83,6 +140,9 @@ function getFormData() {
 }
 
 function dataValidation(formData) {
+  const emailInput = document.querySelector('input[name="email"]');
+  // const passwordInput = document.querySelector('input[name="password"]');
+  // const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
   const messageInput1 = document.getElementById('error-email');
   const messageInput2 = document.getElementById('error-password');
   const messageInput3 = document.getElementById('error-confirmPassword');
@@ -91,24 +151,32 @@ function dataValidation(formData) {
   let confirmPassword = false;
 
   if ((expRegEmail.test(formData.email)) !== true) {
-    messageInput1.innerHTML = 'Ingrese un correo válido';
+    emailInput.style.border = '2px solid red';
+    messageInput1.innerHTML = 'Correo inválido';
   } else {
-    messageInput1.innerHTML = '';
+    emailInput.style.border = '2px solid #ccc';
+    messageInput1.innerHTML = '&nbsp;';
     email = true;
   }
   if (formData.password.length < 6) {
-    messageInput2.innerHTML = 'La contraseña debe contener por lo menos 6 caracteres';
+    // passwordInput.style.border = '2px solid red';
+    messageInput2.innerHTML = 'Requiere al menos 6 caracteres';
   } else if (formData.password.includes(' ')) {
-    messageInput2.innerHTML = 'La contrseña no puede incluir espacios vacios';
+    // passwordInput.style.border = '2px solid red';
+    messageInput2.innerHTML = 'No puede incluir espacios vacios';
   } else {
-    messageInput2.innerHTML = '';
+    // passwordInput.style.border = '2px solid #ccc';
+    messageInput2.innerHTML = '&nbsp;';
     password = true;
   }
   if (formData.password !== formData.confirmPassword) {
+    // passwordInput.style.border = '2px solid red';
+    // confirmPasswordInput.style.border = '2px solid red';
     messageInput3.innerHTML = 'Las contraseñas no son iguales';
   } else {
-    console.log('Los datos fueron enviados a firebases', messageInput3);
-    messageInput3.innerHTML = '';
+    // passwordInput.style.border = '2px solid #ccc';
+    // confirmPasswordInput.style.border = '2px solid #ccc';
+    messageInput3.innerHTML = '&nbsp;';
     confirmPassword = true;
   }
   return (email && password && confirmPassword);

@@ -39,9 +39,15 @@ const view = /* html */ `
 </div>
 
 <style>
+
+.container{
+    width:60%;
+}
+
 .signin-wrapper {
   width:100%;
   margin-top: 200px;
+  box-sizing: border-box 
 }
 .signin-wrapper .question{
     margin-top:0px;
@@ -55,6 +61,11 @@ const view = /* html */ `
     padding: 15px;
     font-size: 18px;
     color: #070e1f;
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box ;
+   
 }
 .signin-wrapper input:focus {
     border: 2px solid #949292 ;
@@ -103,7 +114,7 @@ const view = /* html */ `
 .signin-wrapper .img-fluid {
     display: flex;
     justify-content: center;
-    margin: 0 45% 0 45%;
+    margin: 0 auto;
 }
 
 .signin-wrapper .error {
@@ -118,7 +129,7 @@ const view = /* html */ `
 
 
 
-  
+
 }
 </style>
 `;
@@ -151,10 +162,10 @@ function dataValidation(formData) {
   let confirmPassword = false;
 
   if ((expRegEmail.test(formData.email)) !== true) {
-    emailInput.style.border = '2px solid red';
+    // emailInput.style.border = '2px solid red';
     messageInput1.innerHTML = 'Correo inválido';
   } else {
-    emailInput.style.border = '2px solid #ccc';
+    // emailInput.style.border = '2px solid #ccc';
     messageInput1.innerHTML = '&nbsp;';
     email = true;
   }

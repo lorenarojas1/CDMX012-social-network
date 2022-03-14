@@ -45,7 +45,7 @@ margin-top: 130px;
    border-radius: 10px;
    background: #74C3FC;
    font-size: 18px;
-   margin: 10px;
+   margin-top:15px;
    padding: 10px;
    color: #070e1f;
    border: solid 2px #36a5f5;

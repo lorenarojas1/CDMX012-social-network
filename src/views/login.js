@@ -33,9 +33,14 @@ const view = /* html */ `
 
       <style>
 
+  .container{
+    width:60%;
+}
+
   #login-wrapper {
   width:100%;
   margin-top: 200px;
+       
    }
 
   #login-wrapper .questionPassword,#login-wrapper .questionLogIn{
@@ -51,6 +56,9 @@ const view = /* html */ `
     padding: 15px;
     font-size: 18px;
     color: #070e1f;
+    box-sizing: border-box ;
+    width:100%;
+
   }   
 
   #login-wrapper .inputEmail:focus, #login-wrapper .inputPasswordEmail:focus{
@@ -97,9 +105,9 @@ padding:5px;
 text-align: center;
 }
 #login-wrapper .img-fluid {
-  display: flex;
+   display: flex;
     justify-content: center;
-    margin: 0 45% 0 45%;
+    margin: 0 auto;
 }
 
 #login-wrapper .error {

@@ -47,42 +47,27 @@ onAuthStateChanged(auth, (user) => {
     const tenantId = user.tenantId;
 
     console.log(user);
-    document.getElementById('logInMessage').innerHTML = `Registrado ${user.email}`;
     userActual = user;
   } else {
     // User is signed out
-    document.getElementById("logInMessage").innerHTML = "No registrado"
     userActual = undefined;
   }
 });
 
-
 export const userState = () => userActual;
 
-export const signIn = (email, password) => {
-  return createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      return userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error(errorMessage);
-      return error;
-    });
-}
+export const signInFirebase = (email, password) =>
+  // eslint-disable-next-line implicit-arrow-linebreak
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => userCredential.user);
+// .catch((error) => {
+//   console.table(error);
+//   const errorCode = error.code;
+//   const errorMessage = error.message;
+//   // console.error(errorMessage);
+//   throw error;
+// });
 
 
-export const logIn = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      return userCredential.user;
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      return error;
-    });
-}
+export const logInFirebase = (email, password) => signInWithEmailAndPassword(auth, email, password)
+  .then((userCredential) => userCredential.user);

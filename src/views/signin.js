@@ -1,7 +1,7 @@
-import { signInFirebase } from '../lib/firebase.js';
+import { signInFirebase,userState,emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 
-const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
+const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
 /**
 * Cadena de texto HTML para la vista signin.
  * Incluye sus estilos protegidos por un elemento wrapper,
@@ -11,15 +11,15 @@ const view = /* html */ `
 <div class="signin-wrapper">
   <form>
       <div class="input-email">
-         <div><input type="email" name="email" placeholder='Correo Electrónico'></div>
+         <div><input type="email" name="email" id='input-email' placeholder='Correo Electrónico'></div>
          <span class="error" id="error-email">&nbsp;</span>
       </div>
       <div class="input-email">
-         <div><input type="password" name="password" placeholder='Contraseña'></div>
+         <div><input type="password" name="password" id='input-password' placeholder='Contraseña'></div>
          <span class="error" id="error-password">&nbsp;</span>
        </div>
        <div class="input-email">
-         <div><input type="password" name="confirmPassword" placeholder='Confirma tu contraseña'></div>
+         <div><input type="password" name="confirmPassword" id= 'input-confirm-password' placeholder='Confirma tu contraseña'></div>
          <span class="error" id="error-confirmPassword">&nbsp;</span>
       </div>
       <div class="form-group">
@@ -213,6 +213,21 @@ async function attemptSignIn(e) {
     messageError.innerHTML = 'No se pudo realizar el registro';
     // el usuario ya existe(personalizar los errores con firebase)
     return;
+  }
+
+  if (userState().emailVerified === false) {
+    try {
+      await emailVerification(formData.email);
+    } catch (err) {
+      console.error('manejar error por no poder enviar email', err);
+    }
+
+    document.getElementById('input-email').value = '';
+    document.getElementById('input-password').value = '';
+    document.getElementById('input-confirm-password').value = '';
+
+    // desplegar mensaje
+    alert('se envio correo de verificación');
   }
 
   navigateTo('/home');

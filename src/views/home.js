@@ -24,7 +24,7 @@ const view =/* html */ `
 .title{
 }
 .home-wrapper .container-button{
-  display: flex;
+  <!-- display: flex; -->
 }
 
 .home-wrapper #button-signOut {
@@ -73,12 +73,21 @@ async function signout() {
 
   navigateTo('/');
 }
+let mensajeEmailVerificado;
+function mensaje() {
+  if (userState().emailVerified === false) {
+    mensajeEmailVerificado = 'Email no verificado';
+  } else {
+    mensajeEmailVerificado = 'Email verificado';
+  }
+  return mensajeEmailVerificado;
+}
 
 export default {
   render: () => view,
   afterRender: () => {
     if (userState() !== undefined) {
-      document.getElementById('logInUser').innerHTML = (`Logueado ${userState().email}`);
+      document.getElementById('logInUser').innerHTML = (`Logueado ${userState().email} ${mensaje()}`);
     } else {
       document.getElementById('logInUser').innerHTML = ('No logueado');
     }

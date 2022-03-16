@@ -145,7 +145,7 @@ function dataValidation(formData) {
     email = true;
   }
   if (formData.password.length < 6) {
-    messageInput2.innerHTML = 'Requiere al menos 6 caracteres';
+    messageInput2.innerHTML = 'Contraseña incorrecta';
   } else if (formData.password.includes(' ')) {
     messageInput2.innerHTML = 'No puede incluir espacios vacios';
   } else {
@@ -170,7 +170,7 @@ async function attemptLogIn(e) {
   try {
     await logInFirebase(formData.email, formData.password);
   } catch (error) {
-    console.warning(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
+    console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
     const messageError = document.getElementById('mensajeError');
     messageError.innerHTML = 'No se pudo inicial  sesión';
     // falta agregar que en caso de que no esté registrado mande mensaje

@@ -7,6 +7,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  sendSignInLinkToEmail,
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
 
 const firebaseConfig = {
@@ -19,6 +20,25 @@ const firebaseConfig = {
   measurementId: 'G-71HV0NW8SG',
 };
 
+// Proporciona a Firebase las instrucciones para construir el vínculo de correo electrónico.
+
+const actionCodeSettings = {
+  // URL you want to redirect back to. The domain (www.example.com) for this
+  // URL must be in the authorized domains list in the Firebase Console.
+  url: 'www.google.com/',
+  // This must be true.
+  handleCodeInApp: true,
+  iOS: {
+    bundleId: 'com.example.ios',
+  },
+  android: {
+    packageName: 'com.example.android',
+    installApp: true,
+    minimumVersion: '12',
+  },
+  dynamicLinkDomain: 'example.page.link',
+};
+
 // // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
@@ -28,6 +48,7 @@ const auth = getAuth();
 
 // observador de estado de autenticación y obtén datos del usuario
 let userActual;
+// let userEmailVerification;
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -49,13 +70,17 @@ onAuthStateChanged(auth, (user) => {
 
     console.log(user);
     userActual = user;
+    // userEmailVerification = emailVerified;
   } else {
     // User is signed out
     userActual = undefined;
+    // userEmailVerification = undefined;
   }
 });
 
 export const userState = () => userActual;
+
+// export const userEmailVerified = () => userEmailVerification;
 
 export const signInFirebase = (email, password) =>
   // eslint-disable-next-line implicit-arrow-linebreak
@@ -75,12 +100,13 @@ export const logInFirebase = (email, password) => signInWithEmailAndPassword(aut
 export const logout = () => signOut(auth).then(() => {
 });
 
-// export const logInFirebase = getAuth(email, password);
-// signInWithEmailAndPassword(auth, email, password)
-//   .then((userCredential) => {
-//     const user = userCredential.user;
-//   })
-//   .catch((error) => {
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//   });
+// Envía el vínculo de autenticación al correo electrónico del usuario
+
+export const emailVerification = (email) => sendSignInLinkToEmail(auth, email, actionCodeSettings)
+  .then(() => {
+    // The link was successfully sent. Inform the user.
+    // Save the email locally so you don't need to ask the user for it again
+    // if they open the link on the same device.
+    window.localStorage.setItem('emailForSignIn', email);
+    // ...
+  });

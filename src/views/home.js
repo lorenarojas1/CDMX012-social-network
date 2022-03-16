@@ -2,36 +2,75 @@ import { userState, logout } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 
 const view =/* html */ `
-<section id="home">
+<section class='home-wrapper' id="home">
   <h1 class="title">Terranova</h1>
   <div class="welcomeContent" id="welcomeContent">
-     <div class="buttonCloseAndLogin">
-          <button type="button" class="close" id="close-button">Cerrar sesión</button>
-          <button type="button" class="logIn" id="logIn-button">Inicia sesión</button>
+     <div class="container-button">
+          <button type="button" class="button-close" id="button-signOut">Cerrar sesión</button>
+          <div id="logInUser"></div>
      </div>
-  <div id="logInUser"></div>
-    <div class="welcomeParagraph">
+    <div class="welcome-paragraph">
         <p>Proximamente</p>
   </div>
   </div>
 </section>
 
 <style>
-section{
+.home-wrapper{
   display: block;
   width:100%;
 }
+
 .title{
 }
-
-p{
-    text-align: center;
+.home-wrapper .container-button{
+  display: flex;
 }
+
+.home-wrapper #button-signOut {
+    width:20%;
+    width: max-content;
+    padding: 15px;
+    border-radius: 10px;
+    background: #74C3FC;
+    font-size: 18px;
+    color: #070e1f;
+    border: solid 2px #36a5f5;
+
+}
+
+.home-wrapper #button-signOut:hover {
+  background: #22a3ff;
+    color: #e3f2fd;
+    border: 2px solid #215f8d;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+div #logInUser{
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+
+.welcome-paragraph p {
+    text-align: center;
+    margin-top: 100px;
+    font-size: xxx-large;
+}
+
 </style>
 `;
 
 async function signout() {
-  await logout();
+  try {
+    await logout();
+  } catch (error) {
+    console.error(`No se pudo cerrar sesión, code=${error.code}, message=${error.message}`);
+    // el usuario ya existe(personalizar los errores con firebase)
+  }
+
   navigateTo('/');
 }
 
@@ -43,6 +82,6 @@ export default {
     } else {
       document.getElementById('logInUser').innerHTML = ('No logueado');
     }
-    document.getElementById('close-button').addEventListener('click', signout);
+    document.getElementById('button-signOut').addEventListener('click', signout);
   },
 };

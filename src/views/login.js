@@ -22,6 +22,8 @@ const view = /* html */ `
         </div>
     </form>
         <p class='questionLogIn'>¿No tienes una cuenta?  <em><a href='#' id='signin-link'>Registrate</a></em></p>
+        <div id="logInUser"></div>
+
         <div class="separador">
           <div class='linea-uno'></div>
           <p class='logInWith'>O ingresa con</p>
@@ -33,9 +35,6 @@ const view = /* html */ `
 
       <style>
 
-  .container{
-    width:60%;
-}
 
   #login-wrapper {
   width:100%;

@@ -19,15 +19,18 @@ body {
     /* background-image: url(); */
     /* background-image: url(); */
 }      
+.container{
+    width:60%;
+} 
 
 .title {
     text-align: center;
     color: rgb(14, 31, 51);
     font-size: 40px;
 }
-.img-fluid {
-    max-width: 100%;
-    height: auto;
-   
-} 
+ .img-fluid {
+    display: flex;
+     justify-content: center;
+     margin: 0 auto;
+ }
  

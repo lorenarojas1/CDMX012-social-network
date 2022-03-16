@@ -28,7 +28,7 @@ const view = /* html */ `
       </div>
   </form> 
     <div class='question'>¿Ya tienes una cuenta? <em><a href="#" id='login-link'>Inicia sesión</a></em></div>
- 
+
     <div class="separador">
        <div class='linea-uno'></div>
        <p class='signInWith'>O ingresa con</p>
@@ -39,10 +39,6 @@ const view = /* html */ `
 </div>
 
 <style>
-
-.container{
-    width:60%;
-}
 
 .signin-wrapper {
   width:100%;
@@ -157,7 +153,7 @@ function getFormData() {
 }
 
 function dataValidation(formData) {
-  const emailInput = document.querySelector('input[name="email"]');
+  // const emailInput = document.querySelector('input[name="email"]');
   // const passwordInput = document.querySelector('input[name="password"]');
   // const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
   const messageInput1 = document.getElementById('error-email');

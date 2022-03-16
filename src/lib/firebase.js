@@ -3,6 +3,7 @@ import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase
 import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js';
 import {
   getAuth,
+  signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
@@ -23,10 +24,10 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 console.log(analytics);
 
-
 const auth = getAuth();
 
-let userActual = undefined;
+// observador de estado de autenticación y obtén datos del usuario
+let userActual;
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -68,6 +69,18 @@ export const signInFirebase = (email, password) =>
 //   throw error;
 // });
 
-
 export const logInFirebase = (email, password) => signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => userCredential.user);
+
+export const logout = () => signOut(auth).then(() => {
+});
+
+// export const logInFirebase = getAuth(email, password);
+// signInWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     const user = userCredential.user;
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   });

@@ -15,6 +15,7 @@ export const navigateTo = (route) => {
     route,
     window.location.origin + route,
   );
+  // window.history.forward();
   // window.history.back es el que fuerza la generación del evento popState
   window.history.back();
 };

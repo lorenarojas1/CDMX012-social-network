@@ -230,10 +230,10 @@ async function attemptSignIn(e) {
     document.getElementById('input-confirm-password').value = '';
 
     // desplegar mensaje
-    alert('se envio correo de verificación');
+    // alert('se envio correo de verificación');
   }
 
-  navigateTo('/home');
+  navigateTo('/homeUser');
 }
 
 /**

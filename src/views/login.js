@@ -177,7 +177,7 @@ async function attemptLogIn(e) {
   }
 
   // despues que el registro fue exitoso, cambiar de vista
-  navigateTo('/home');
+  navigateTo('/homeUser');
 }
 
 export default {

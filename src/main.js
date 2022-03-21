@@ -1,4 +1,4 @@
-import { initRouter, displayView } from './router.js';
+import { initRouter, displayView } from './lib/router.js';
 
 // primero iniciamos el router pasando como selector el division appContainer
 initRouter('#appContainer');

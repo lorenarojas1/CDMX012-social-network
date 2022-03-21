@@ -4,7 +4,8 @@ import { navigateTo } from '../lib/navigator.js';
 const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
 
 const view = /* html */ `
-<section class="logInEmail" id="login-wrapper">
+<section class="logInSigninEmail" id="login-wrapper">
+    <div class="contenido-login">
     <form>
        <div class="input-email">
            <input type='email' class='inputEmail' id='inputEmail' name='email' placeholder='Correo Electrónico'>
@@ -30,17 +31,15 @@ const view = /* html */ `
           <div class='linea-dos'></div>
        </div>
        <img class="img-fluid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVlJREFUSEvNlYExBEEQRd9lIANEQAbIgAgQwREBIkAGREAGiIDLgAyIgHpqRrUxO7N3Vaeuq7bqamfu/+7+3X8nLDkmS8ZnJQh2gR1gOz1rwEt6roHXVhdaFQh0CRx12ngPHAPvtXtDBGZ7B2yM1MhKTsYSmPnzAPhTArFlOW5bVdYquAEOA8BHArAVMc4Bk6lmni+WBAr6UID7TlEXipLArM4C0gFQZj4XUUnwmEZyqELfe+ezwXIaKy4JnOn19GcFtT1ltMC9ewHYie/4d4KxLYpVOUlbQ7r1RLafVx1VPZ+GO5vRPnpj6vrvNcbUjXesrcJ4Kxe0tmhlRpIomnYQQ4/SqzK4Z3qSi/oTNYLslnma4n0XTsLadM2S2/7KomV2LliNpCaJ4JL+cdSeXduaKGANXLPTj+ay6wikkPtJPH/bQhfSkbbfC39wOtM57nglvsnjUh249QX0WEAZ2ArXmQAAAABJRU5ErkJggg=="/>
-
+    </div>
       </section>
 
       <style>
 
-
-  #login-wrapper {
-  width:100%;
-  margin-top: 200px;
-       
-   }
+    .contenido-login {
+    width:100%;
+    margin-top: 200px;
+   } 
 
   #login-wrapper .questionPassword,#login-wrapper .questionLogIn{
     margin-top:0px;

@@ -1,6 +1,7 @@
-import { signInFirebase,userState,emailVerification } from '../lib/firebase.js';
+import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 
+// eslint-disable-next-line no-useless-escape
 const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
 /**
 * Cadena de texto HTML para la vista signin.
@@ -8,7 +9,8 @@ const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(
  * para no afectar a elementos de otras vistas.
  */
 const view = /* html */ `
-<div class="signin-wrapper">
+<section class="logInSigninEmail" id="signin-wrapper">
+  <div class="contenido-signin">
   <form>
       <div class="input-email">
          <div><input type="email" name="email" id='input-email' placeholder='Correo Electrónico'></div>
@@ -35,22 +37,23 @@ const view = /* html */ `
        <div class='linea-dos'></div>
     </div>
     <img class="img-fluid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVlJREFUSEvNlYExBEEQRd9lIANEQAbIgAgQwREBIkAGREAGiIDLgAyIgHpqRrUxO7N3Vaeuq7bqamfu/+7+3X8nLDkmS8ZnJQh2gR1gOz1rwEt6roHXVhdaFQh0CRx12ngPHAPvtXtDBGZ7B2yM1MhKTsYSmPnzAPhTArFlOW5bVdYquAEOA8BHArAVMc4Bk6lmni+WBAr6UID7TlEXipLArM4C0gFQZj4XUUnwmEZyqELfe+ezwXIaKy4JnOn19GcFtT1ltMC9ewHYie/4d4KxLYpVOUlbQ7r1RLafVx1VPZ+GO5vRPnpj6vrvNcbUjXesrcJ4Kxe0tmhlRpIomnYQQ4/SqzK4Z3qSi/oTNYLslnma4n0XTsLadM2S2/7KomV2LliNpCaJ4JL+cdSeXduaKGANXLPTj+ay6wikkPtJPH/bQhfSkbbfC39wOtM57nglvsnjUh249QX0WEAZ2ArXmQAAAABJRU5ErkJggg=="/>
+  </div>
+</section>
 
-</div>
 
 <style>
 
-.signin-wrapper {
+.contenido-signin {
   width:100%;
   margin-top: 200px;
   box-sizing: border-box 
 }
-.signin-wrapper .question{
+#signin-wrapper .question{
     margin-top:0px;
     font-size: 15px;
     display: contents;
   }
-.signin-wrapper input {
+#signin-wrapper input {
     border: 2px solid #ccc;
     border-radius: 10px;
     background: #fff;
@@ -63,7 +66,7 @@ const view = /* html */ `
     box-sizing: border-box ;
    
 }
-.signin-wrapper input:focus {
+#signin-wrapper input:focus {
     border: 2px solid #949292 ;
     outline:none;
     transition: 0.3s;
@@ -72,7 +75,7 @@ const view = /* html */ `
 
 }
 
-.signin-wrapper #buttonSingIn {
+#signin-wrapper #buttonSingIn {
   width:100%;
     padding: 15px;
     border-radius: 10px;
@@ -82,7 +85,7 @@ const view = /* html */ `
    border: solid 2px #36a5f5;
 }
 
-.signin-wrapper #buttonSingIn:hover {
+#signin-wrapper #buttonSingIn:hover {
   background: #22a3ff;
     color: #e3f2fd;
     border: 2px solid #215f8d;
@@ -90,30 +93,30 @@ const view = /* html */ `
     cursor: pointer;
 }
 
-.signin-wrapper .separador{
+#signin-wrapper .separador{
   display: flex;
   justify-content: space-between;
 }
 
-.signin-wrapper .linea-uno,.signin-wrapper .linea-dos{
+#signin-wrapper .linea-uno,#signin-wrapper .linea-dos{
   width: 40%;
   border-top: 1px solid black;
   margin-top: 50px;
   padding:5px;
 }
 
-.signin-wrapper .signInWith{
+#signin-wrapper .signInWith{
   width:20%;
   padding:5px;
   text-align: center;
 }
-.signin-wrapper .img-fluid {
+#signin-wrapper .img-fluid {
     display: flex;
     justify-content: center;
     margin: 0 auto;
 }
 
-.signin-wrapper .error {
+#signin-wrapper .error {
     color: red;
     margin-top:0px;
     font-size: 15px;
@@ -227,10 +230,10 @@ async function attemptSignIn(e) {
     document.getElementById('input-confirm-password').value = '';
 
     // desplegar mensaje
-    alert('se envio correo de verificación');
+    // alert('se envio correo de verificación');
   }
 
-  navigateTo('/home');
+  navigateTo('/homeUser');
 }
 
 /**

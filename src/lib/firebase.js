@@ -11,13 +11,14 @@ import {
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCqTISmv9xl4M68SQGLo_ELcW00XEBiXPU',
-  authDomain: 'social-network-9b189.firebaseapp.com',
-  projectId: 'social-network-9b189',
-  storageBucket: 'social-network-9b189.appspot.com',
-  messagingSenderId: '742781158291',
-  appId: '1:742781158291:web:616299e44ca78b89639e66',
-  measurementId: 'G-71HV0NW8SG',
+
+    apiKey: "AIzaSyBV1upmSkvZp-qyFv_0YRBVJb-2luXPivQ",
+    authDomain: "data2-64c71.firebaseapp.com",
+    projectId: "data2-64c71",
+    storageBucket: "data2-64c71.appspot.com",
+    messagingSenderId: "914295642551",
+    appId: "1:914295642551:web:3aaab72cfb317c0d233032"
+  
 };
 
 // Proporciona a Firebase las instrucciones para construir el vínculo de correo electrónico.
@@ -110,3 +111,5 @@ export const emailVerification = (email) => sendSignInLinkToEmail(auth, email, a
     window.localStorage.setItem('emailForSignIn', email);
     // ...
   });
+
+  

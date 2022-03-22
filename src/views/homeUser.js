@@ -10,6 +10,7 @@ function homeUser() {
   const footerEl = footer();
 
   return [headerEl, mainPageEl, footerEl];
+  // return [mainPageEl, footerEl];
 
   // const wrapperEl = document.createElement('div');
   // wrapperEl.appendChild(headerEl);

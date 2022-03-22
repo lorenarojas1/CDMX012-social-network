@@ -1,10 +1,143 @@
+/* eslint-disable import/no-cycle */
+// import { listPosts } from './posts.js';
+
+import { listPosts } from './post.js';
+
 export function main() {
+  // Home
+  const mainPages = document.createElement('section');
+  //mainPages.appendChild(loadNavbar());
+
+  // Contenedor de Home
+  const container = document.createElement('section');
+  //container.classList.add('container-home');
+  container.classList.add('content');
+
+  // -----  Seccion principal de Home (Posts)
+  //const sectionPostHome = document.createElement('section');
+  //sectionPostHome.classList.add('posts-home');
+
+  const sectionPostHome = document.createElement('div');
+  sectionPostHome.classList.add('mainnofixed');
+  sectionPostHome.setAttribute('id', 'mainnofixed');
+
+  const formHome = document.createElement('form');
+  formHome.classList.add('main');
+  formHome.classList.add('mainpost');
+  formHome.classList.add('form-home');
+  formHome.id = 'formHome';
+  formHome.style.marginBottom = '20px';
+  formHome.style.paddingBottom = '10px';
+
+  const userImageBox = document.createElement('div');
+  userImageBox.classList.add('userimg');
+  const userImage = document.createElement('img');
+  userImage.src = './image/user/3.png';
+
+  const userName = document.createElement('div');
+  userName.classList.add('username');
+  const nameText = document.createElement('p');
+  nameText.classList.add('name');
+  nameText.textContent = 'Nombre';
+  nameText.style.top = '15px';
+
+
+  // TextArea del form
+  const boxMessage = document.createElement('p');
+  boxMessage.classList.add('quotes');
+  const textAreaFormHome = document.createElement('textArea');
+  textAreaFormHome.classList.add('description-Posts');
+  textAreaFormHome.id = 'mypara';
+  //textAreaFormHome.id = 'descriptionPosts';
+  textAreaFormHome.name = 'description-posts';
+  textAreaFormHome.placeholder = 'Comparte un artículo, foto, video o idea...';
+
+  //const boxMessage = document.createElement('p');
+  //boxMessage.classList.add('quotes');
+  //const textMessage = document.createElement('textarea');
+  //textMessage.setAttribute('id', 'mypara');
+  //textMessage.setAttribute('placeholder', 'comparte un artículo, foto, video o idea...');
+
+  const post = document.createElement('div');
+  post.classList.add('post');
+  const loadImage = document.createElement('img');
+  loadImage.setAttribute('id', 'load2');
+  loadImage.classList.add('postimg');
+  loadImage.src = ' ';
+
+  const postBar = document.createElement('div');
+  postBar.classList.add('postbar');
+
+  const chooseImage = document.createElement('input');
+  chooseImage.setAttribute('type', 'file');
+  chooseImage.setAttribute('accept', 'images/*');
+  chooseImage.setAttribute('id', 'chooseimg');
+  chooseImage.addEventListener('change', (event) => {
+    loadImage.src = URL.createObjectURL(event.target.files[0]);
+  });
+
+  const buttonChooseImage = document.createElement('button');
+  buttonChooseImage.classList.add('imgbttn');
+  buttonChooseImage.setAttribute('type', 'button');
+  buttonChooseImage.setAttribute('id', 'imgbttn');
+  buttonChooseImage.textContent = 'Imagen';
+  const chooseImageIcon = document.createElement('img');
+  chooseImageIcon.src = './image/icon/image.png';
+  chooseImageIcon.style.width = '25px';
+
+  // Boton del form enviar post
+  const btnSendPost = document.createElement('button');
+  btnSendPost.type = 'submit';
+  btnSendPost.classList.add('postmypost');
+  btnSendPost.id = 'postmypost';
+  btnSendPost.innerText = 'Enviar';
+
+  //const buttonSendPost = document.createElement('button');
+  //buttonSendPost.classList.add('postmypost');
+  //buttonSendPost.setAttribute('type', 'button');
+  //buttonSendPost.setAttribute('id', 'postmypost');
+ // buttonSendPost.textContent = 'Enviar';
+
+  formHome.appendChild(userImageBox);
+  userImageBox.appendChild(userImage);
+  formHome.appendChild(userName);
+  userName.appendChild(nameText);
+  formHome.appendChild(boxMessage);
+  boxMessage.appendChild(textAreaFormHome);
+  formHome.appendChild(post);
+  formHome.appendChild(postBar);
+  post.appendChild(loadImage);
+  postBar.append(chooseImage, buttonChooseImage);
+  formHome.appendChild(btnSendPost);
+  // Agregando el form a la Sección principal
+  sectionPostHome.appendChild(formHome);
+  sectionPostHome.appendChild(listPosts(formHome, btnSendPost));
+
+  // Seccion del post container (contiene los posts)
+  const sectionPostsContainer = document.createElement('section');
+  sectionPostsContainer.classList.add('post-container');
+  sectionPostsContainer.id = 'postContainer';
+  sectionPostHome.appendChild(sectionPostsContainer);
+  container.appendChild(sectionPostHome);
+
+  // Aside Derecho del home
+  const asideRightHome = document.createElement('aside');
+  asideRightHome.classList.add('hash-home');
+  container.appendChild(asideRightHome);
+
+  mainPages.appendChild(container);
+  return mainPages;
+}
+
+/*export function main() {
+  // Home user
   const mainPage = document.createElement('main');
   mainPage.classList.add('content');
   const mainNoFixed = document.createElement('div');
   mainNoFixed.classList.add('mainnofixed');
   mainNoFixed.setAttribute('id', 'mainnofixed');
-
+  
+  // Escribir un post
   const mainPost = document.createElement('div');
   mainPost.classList.add('main');
   mainPost.classList.add('mainpost');
@@ -61,7 +194,7 @@ export function main() {
   buttonSendPost.setAttribute('type', 'button');
   buttonSendPost.setAttribute('id', 'postmypost');
   buttonSendPost.textContent = 'Enviar';
-  buttonSendPost.addEventListener('click', () => {
+  /*buttonSendPost.addEventListener('click', () => {
     mypost();
     alert('Funciona');
   });
@@ -70,9 +203,11 @@ export function main() {
   allPost.classList.add('allpost');
 
   mainPage.append(mainNoFixed);
-  mainNoFixed.append(mainPost, allPost);
+  mainNoFixed.appendChild(mainPost, allPost);
+  
 
   mainPost.append(userImageBox, userName, boxMessage, post, postBar);
+
   userImageBox.append(userImage);
   userName.append(nameText);
   boxMessage.append(textMessage);
@@ -80,94 +215,9 @@ export function main() {
   postBar.append(chooseImage, buttonChooseImage, buttonSendPost);
   buttonChooseImage.appendChild(chooseImageIcon);
 
+  mainNoFixed.appendChild(listPosts(mainPost, buttonSendPost));
+
+
   return mainPage;
-}
+}*/
 
-function mypost() {
-  const div = document.createElement('DIV');
-  div.className = 'mainpost';
-
-  const parent = document.getElementsByClassName('allpost');
-  parent[0].insertBefore(div, parent[0].childNodes[0]);
-
-  const div1 = document.createElement('DIV');
-  div1.className = 'userimg';
-  const img = document.createElement('img');
-  img.src = './image/user/3.png';
-  div1.appendChild(img);
-  div.appendChild(div1);
-
-  const div2 = document.createElement('DIV');
-  div2.className = 'username';
-  const para = document.createElement('p');
-  para.className = 'name';
-  const text1 = document.createTextNode('Nombre');
-  para.appendChild(text1);
-  div2.appendChild(para);
-  div.appendChild(div2);
-
-  const para1 = document.createElement('p');
-  para1.className = 'time';
-  const text2 = document.createTextNode('Just now');
-  para1.appendChild(text2);
-  div.appendChild(para1);
-
-  const para2 = document.createElement('p');
-  para2.className = 'quotes';
-  const pararec = document.getElementById('mypara');
-  const paapa = pararec.value.replace(/\s/g, '\u00a0');
-  pararec.value = '';
-
-  const text3 = document.createTextNode(paapa);
-  para2.appendChild(text3);
-  div.appendChild(para2);
-
-  const div3 = document.createElement('DIV');
-  div3.className = 'post';
-  const img1 = document.createElement('img');
-  img1.className = 'postimg';
-  const output = document.getElementById('load2');
-  img1.src = output.src;
-  output.src = '';
-  div3.appendChild(img1);
-  div.appendChild(div3);
-
-  const div4 = document.createElement('DIV');
-  div4.classList.add('containerLikes');
-  const voting = document.createElement('DIV');
-  voting.classList.add('voting');
-
-  const buttonLike = document.createElement('button');
-  buttonLike.classList.add('btnvoting');
-  buttonLike.classList.add('likebtn');
-  const like = document.createElement('i');
-  like.className = 'fa fa-thumbs-up';
-
-  const inputLike = document.createElement('input');
-  inputLike.classList.add('inputvoting');
-  inputLike.setAttribute('type', 'number');
-  inputLike.setAttribute('id', 'input1');
-  inputLike.setAttribute('value', '0');
-  inputLike.setAttribute('name', '');
-
-  const buttonDislike = document.createElement('button');
-  buttonDislike.classList.add('btnvoting');
-  buttonDislike.classList.add('dislikebtn');
-  const dislike = document.createElement('i');
-  dislike.classList.add('fa');
-  dislike.classList.add('fa-thumbs-down');
-  const inputDislike = document.createElement('input');
-  inputDislike.classList.add('inputvoting');
-  inputDislike.setAttribute('type', 'number');
-  inputDislike.setAttribute('id', 'input2');
-  inputDislike.setAttribute('value', '0');
-  inputDislike.setAttribute('name', '');
-
-  div.appendChild(div4);
-  div4.appendChild(voting);
-  voting.append(buttonLike, inputLike, buttonDislike, inputDislike);
-  buttonLike.appendChild(like);
-  buttonDislike.appendChild(dislike);
-
-  // incre++;
-}

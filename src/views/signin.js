@@ -1,8 +1,7 @@
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
+import { validatorForm } from '../lib/validator.js';
 
-// eslint-disable-next-line no-useless-escape
-const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
 /**
 * Cadena de texto HTML para la vista signin.
  * Incluye sus estilos protegidos por un elemento wrapper,
@@ -155,48 +154,6 @@ function getFormData() {
   };
 }
 
-function dataValidation(formData) {
-  // const emailInput = document.querySelector('input[name="email"]');
-  // const passwordInput = document.querySelector('input[name="password"]');
-  // const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
-  const messageInput1 = document.getElementById('error-email');
-  const messageInput2 = document.getElementById('error-password');
-  const messageInput3 = document.getElementById('error-confirmPassword');
-  let email = false;
-  let password = false;
-  let confirmPassword = false;
-
-  if ((expRegEmail.test(formData.email)) !== true) {
-    // emailInput.style.border = '2px solid red';
-    messageInput1.innerHTML = 'Correo inválido';
-  } else {
-    // emailInput.style.border = '2px solid #ccc';
-    messageInput1.innerHTML = '&nbsp;';
-    email = true;
-  }
-  if (formData.password.length < 6) {
-    // passwordInput.style.border = '2px solid red';
-    messageInput2.innerHTML = 'Requiere al menos 6 caracteres';
-  } else if (formData.password.includes(' ')) {
-    // passwordInput.style.border = '2px solid red';
-    messageInput2.innerHTML = 'No puede incluir espacios vacios';
-  } else {
-    // passwordInput.style.border = '2px solid #ccc';
-    messageInput2.innerHTML = '&nbsp;';
-    password = true;
-  }
-  if (formData.password !== formData.confirmPassword) {
-    // passwordInput.style.border = '2px solid red';
-    // confirmPasswordInput.style.border = '2px solid red';
-    messageInput3.innerHTML = 'Las contraseñas no son iguales';
-  } else {
-    // passwordInput.style.border = '2px solid #ccc';
-    // confirmPasswordInput.style.border = '2px solid #ccc';
-    messageInput3.innerHTML = '&nbsp;';
-    confirmPassword = true;
-  }
-  return (email && password && confirmPassword);
-}
 /**
  * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
  * @param {event} e evento submit
@@ -204,7 +161,11 @@ function dataValidation(formData) {
 async function attemptSignIn(e) {
   e.preventDefault();
   const formData = getFormData();
-  if (dataValidation(formData) !== true) {
+  const errors = validatorForm(formData.email, formData.password, formData.confirmPassword);
+  document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
+  document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
+  document.getElementById('error-confirmPassword').innerHTML = errors.confirmPassword || '&nbsp';
+  if (errors.count > 0) {
     return;
   }
 
@@ -224,13 +185,6 @@ async function attemptSignIn(e) {
     } catch (err) {
       console.error('manejar error por no poder enviar email', err);
     }
-
-    document.getElementById('input-email').value = '';
-    document.getElementById('input-password').value = '';
-    document.getElementById('input-confirm-password').value = '';
-
-    // desplegar mensaje
-    // alert('se envio correo de verificación');
   }
 
   navigateTo('/homeUser');

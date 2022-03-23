@@ -10,15 +10,27 @@ import {
   sendSignInLinkToEmail,
 } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
 
+export { initializeApp };
+export { getAnalytics };
+
+export {
+  getAuth,
+  signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  sendSignInLinkToEmail,
+};
+
 const firebaseConfig = {
 
-    apiKey: "AIzaSyBV1upmSkvZp-qyFv_0YRBVJb-2luXPivQ",
-    authDomain: "data2-64c71.firebaseapp.com",
-    projectId: "data2-64c71",
-    storageBucket: "data2-64c71.appspot.com",
-    messagingSenderId: "914295642551",
-    appId: "1:914295642551:web:3aaab72cfb317c0d233032"
-  
+  apiKey: 'AIzaSyBV1upmSkvZp-qyFv_0YRBVJb-2luXPivQ',
+  authDomain: 'data2-64c71.firebaseapp.com',
+  projectId: 'data2-64c71',
+  storageBucket: 'data2-64c71.appspot.com',
+  messagingSenderId: '914295642551',
+  appId: '1:914295642551:web:3aaab72cfb317c0d233032',
+
 };
 
 // Proporciona a Firebase las instrucciones para construir el vínculo de correo electrónico.
@@ -55,19 +67,19 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-    const uid = user.uid;
-    const displayName = user.displayName;
-    const email = user.email;
-    const emailVerified = user.emailVerified;
-    const isAnonymous = user.isAnonymous;
-    const metadata = user.metadata;
-    const multiFactor = user.multiFactor;
-    const phoneNumber = user.phoneNumber;
-    const photoURL = user.photoURL;
-    const providerData = user.providerData;
-    const providerId = user.providerId;
-    const refreshToken = user.refreshToken;
-    const tenantId = user.tenantId;
+    // const uid = user.uid;
+    // const displayName = user.displayName;
+    // const email = user.email;
+    // const emailVerified = user.emailVerified;
+    // const isAnonymous = user.isAnonymous;
+    // const metadata = user.metadata;
+    // const multiFactor = user.multiFactor;
+    // const phoneNumber = user.phoneNumber;
+    // const photoURL = user.photoURL;
+    // const providerData = user.providerData;
+    // const providerId = user.providerId;
+    // const refreshToken = user.refreshToken;
+    // const tenantId = user.tenantId;
 
     console.log(user);
     userActual = user;
@@ -111,5 +123,3 @@ export const emailVerification = (email) => sendSignInLinkToEmail(auth, email, a
     window.localStorage.setItem('emailForSignIn', email);
     // ...
   });
-
-  

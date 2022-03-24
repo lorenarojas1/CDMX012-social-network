@@ -1,18 +1,17 @@
 import { logInFirebase } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
-
-const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/
+import { validatorFormLogin } from '../lib/validator.js';
 
 const view = /* html */ `
 <section class="logInSigninEmail" id="login-wrapper">
     <div class="contenido-login">
     <form>
        <div class="input-email">
-           <input type='email' class='inputEmail' id='inputEmail' name='email' placeholder='Correo Electrónico'>
+           <input type='email'  id='inputEmail' name='email' novalidate="true" placeholder='Correo Electrónico'>
        </div>  
            <span class="error" id="error-email">&nbsp;</span>
        <div class="input-password">
-           <input type='password' class='inputPasswordEmail' id='passwordEmail' name='password' placeholder='Contraseña'>
+           <input type='password' id='passwordEmail' name='password' placeholder='Contraseña'>
        </div>
           <span class="error" id="error-password">&nbsp;</span>
         <p class='questionPassword'>¿Olvidaste tu contraseña?</p>
@@ -47,7 +46,7 @@ const view = /* html */ `
     display: contents;
   }
 
-  #login-wrapper .inputEmail, #login-wrapper .inputPasswordEmail{
+  #login-wrapper #inputEmail, #login-wrapper #passwordEmail{
     border: 2px solid #ccc;
     border-radius: 10px;
     background: #fff;
@@ -59,7 +58,7 @@ const view = /* html */ `
 
   }   
 
-  #login-wrapper .inputEmail:focus, #login-wrapper .inputPasswordEmail:focus{
+  #login-wrapper .inputEmail:focus, #login-wrapper #passwordEmail:focus{
     border: 2px solid #949292;
     outline: none;
     transition: 0.3s;
@@ -131,29 +130,6 @@ function getFormData() {
   };
 }
 
-function dataValidation(formData) {
-  const messageInput1 = document.getElementById('error-email');
-  const messageInput2 = document.getElementById('error-password');
-  let email = false;
-  let password = false;
-
-  if ((expRegEmail.test(formData.email)) !== true) {
-    messageInput1.innerHTML = 'Correo inválido';
-  } else {
-    messageInput1.innerHTML = '&nbsp;';
-    email = true;
-  }
-  if (formData.password.length < 6) {
-    messageInput2.innerHTML = 'Contraseña incorrecta';
-  } else if (formData.password.includes(' ')) {
-    messageInput2.innerHTML = 'No puede incluir espacios vacios';
-  } else {
-    messageInput2.innerHTML = '&nbsp;';
-    password = true;
-    console.log('Los datos fueron enviados');
-  }
-  return (email && password);
-}
 /**
    * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
    * @param {event} e evento submit
@@ -162,7 +138,10 @@ async function attemptLogIn(e) {
   e.preventDefault();
 
   const formData = getFormData();
-  if (dataValidation(formData) !== true) {
+  const errorsLogin = validatorFormLogin(formData.email, formData.password);
+  document.getElementById('error-email').innerHTML = errorsLogin.email || '&nbsp';
+  document.getElementById('error-password').innerHTML = errorsLogin.password || '&nbsp';
+  if (errorsLogin.count > 0) {
     return;
   }
 

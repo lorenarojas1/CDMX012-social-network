@@ -1,43 +1,76 @@
-import { validatorForm } from '../../src/lib/validator.js';
+import { validatorFormSignin, validatorFormLogin } from '../../src/lib/validator.js';
 
-describe('validatorForm', () => {
+describe('validatorFormSignin', () => {
   it('regresa errores para campos vacios', () => {
-    const errors = validatorForm('', '', '');
+    const errors = validatorFormSignin('', '', '');
 
     expect(errors.count).toBe(2);
+    expect(errors.email).toBe('Ingresa tu correo');
+    expect(errors.password).toBe('Ingrese una contraseña');
   });
 
   it('regresa errores para todos los campos', () => {
-    const errors = validatorForm('', '', '8');
+    const errors = validatorFormSignin('', '', '8');
 
     expect(errors.count).toBe(3);
   });
 
   it('regresa error para email', () => {
-    const errors = validatorForm('hhkjh', '123456', '123456');
+    const errors = validatorFormSignin('hhkjh', '123456', '123456');
 
     expect(errors.count).toBe(1);
     expect(errors.email).toBe('Correo inválido');
   });
 
   it('regresa error para contraseña corta', () => {
-    const errors = validatorForm('a@a.com', '12345', '12345');
+    const errors = validatorFormSignin('a@a.com', '12345', '12345');
 
     expect(errors.count).toBe(1);
     expect(errors.password).toBe('Requiere al menos 6 caracteres');
   });
 
   it('regresa error por que la contraseña contiene espacio  ', () => {
-    const errors = validatorForm('a@a.com', '123 456', '123 456');
+    const errors = validatorFormSignin('a@a.com', '123 456', '123 456');
 
     expect(errors.count).toBe(1);
     expect(errors.password).toBe('No puede incluir espacios vacios');
   });
 
   it('regresa error por que las contraseñas no coinciden', () => {
-    const errors = validatorForm('a@a.com', '123456', '123457');
+    const errors = validatorFormSignin('a@a.com', '123456', '123457');
 
     expect(errors.count).toBe(1);
     expect(errors.confirmPassword).toBe('Las contraseñas no son iguales');
+  });
+});
+
+describe('validatorLogin', () => {
+  it('regresa errores para campos vacios', () => {
+    const errors = validatorFormLogin('', '');
+
+    expect(errors.count).toBe(2);
+    expect(errors.email).toBe('Ingresa tu correo');
+    expect(errors.password).toBe('Ingresa tu contraseña');
+  });
+
+  it('regresa error para email', () => {
+    const errors = validatorFormLogin('hhkjh', '123456');
+
+    expect(errors.count).toBe(1);
+    expect(errors.email).toBe('Correo inválido');
+  });
+
+  it('regresa error para contraseña', () => {
+    const errors = validatorFormLogin('a@a.com', '12345');
+
+    expect(errors.count).toBe(1);
+    expect(errors.password).toBe('Contraseña incorrecta');
+  });
+
+  it('regresa error por que la contraseña contiene espacio  ', () => {
+    const errors = validatorFormLogin('a@a.com', '123 456');
+
+    expect(errors.count).toBe(1);
+    expect(errors.password).toBe('Contraseña incorrecta');
   });
 });

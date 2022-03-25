@@ -4,9 +4,10 @@ describe('validatorFormSignin', () => {
   it('regresa errores para campos vacios', () => {
     const errors = validatorFormSignin('', '', '');
 
-    expect(errors.count).toBe(2);
+    expect(errors.count).toBe(3);
     expect(errors.email).toBe('Ingresa tu correo');
     expect(errors.password).toBe('Ingrese contraseña');
+    expect(errors.confirmPassword).toBe('Ingrese contraseña');
   });
 
   it('regresa errores para todos los campos', () => {

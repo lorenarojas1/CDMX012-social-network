@@ -46,7 +46,7 @@ const view = /* html */ `
     display: contents;
   }
 
-  #login-wrapper #inputEmail, #login-wrapper #passwordEmail{
+  #login-wrapper input, #login-wrapper input{
     border: 2px solid #ccc;
     border-radius: 10px;
     background: #fff;
@@ -58,7 +58,7 @@ const view = /* html */ `
 
   }   
 
-  #login-wrapper .inputEmail:focus, #login-wrapper #passwordEmail:focus{
+  #login-wrapper input:focus, #login-wrapper input:focus{
     border: 2px solid #949292;
     outline: none;
     transition: 0.3s;
@@ -114,6 +114,15 @@ text-align: center;
     display: block;
     width: 100%;
 }
+
+ #login-wrapper input.invalid {
+  border: 2px solid red;
+  }
+
+ #login-wrapper input.valid{
+  border: 2px solid green;
+  }
+
      </style>
 `;
 
@@ -139,8 +148,22 @@ async function attemptLogIn(e) {
 
   const formData = getFormData();
   const errorsLogin = validatorFormLogin(formData.email, formData.password);
+
   document.getElementById('error-email').innerHTML = errorsLogin.email || '&nbsp';
   document.getElementById('error-password').innerHTML = errorsLogin.password || '&nbsp';
+
+  if (errorsLogin.email) {
+    document.getElementById('inputEmail').classList.add('invalid');
+  } else {
+    document.getElementById('inputEmail').classList.add('valid');
+  }
+
+  if (errorsLogin.password) {
+    document.getElementById('passwordEmail').classList.add('invalid');
+  } else {
+    document.getElementById('passwordEmail').classList.add('valid');
+  }
+
   if (errorsLogin.count > 0) {
     return;
   }

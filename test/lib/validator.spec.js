@@ -6,7 +6,7 @@ describe('validatorFormSignin', () => {
 
     expect(errors.count).toBe(2);
     expect(errors.email).toBe('Ingresa tu correo');
-    expect(errors.password).toBe('Ingrese una contraseña');
+    expect(errors.password).toBe('Ingrese contraseña');
   });
 
   it('regresa errores para todos los campos', () => {

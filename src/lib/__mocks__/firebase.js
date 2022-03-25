@@ -25,6 +25,8 @@ const getAnalytics = (app) => {
 
 const signInFirebase = (email, password) => Promise.resolve({});
 
+const logInFirebase = (email, password) => Promise.resolve({});
+
 export { getAuth };
 export { signOut };
 export { createUserWithEmailAndPassword };
@@ -34,8 +36,10 @@ export { sendSignInLinkToEmail };
 export { initializeApp };
 export { getAnalytics };
 
+export { signInFirebase };
+export { logInFirebase };
+
 // export {
 //   getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword,
 //   onAuthStateChanged, sendSignInLinkToEmail, initializeApp, getAnalytics,
 // };
-export { signInFirebase };

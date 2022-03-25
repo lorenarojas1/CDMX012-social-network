@@ -1,6 +1,6 @@
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
-import { validatorForm } from '../lib/validator.js';
+import { validatorFormSignin } from '../lib/validator.js';
 
 /**
 * Cadena de texto HTML para la vista signin.
@@ -12,7 +12,7 @@ const view = /* html */ `
   <div class="contenido-signin">
   <form>
       <div class="input-email">
-         <div><input type="email" name="email" id='input-email' placeholder='Correo Electrónico'></div>
+         <div><input type="email" class="border" name="email" id="input-email" novalidate="true" placeholder="Correo Electrónico"></div>
          <span class="error" id="error-email">&nbsp;</span>
       </div>
       <div class="input-email">
@@ -52,6 +52,7 @@ const view = /* html */ `
     font-size: 15px;
     display: contents;
   }
+  
 #signin-wrapper input {
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -122,6 +123,15 @@ const view = /* html */ `
     display: block;
     width: 100%;
 }
+#signin-wrapper input.invalid {
+  border: 2px solid red;
+  }
+
+
+  #signin-wrapper input.valid{
+  border: 2px solid green;
+  }
+
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 
@@ -146,7 +156,6 @@ function getFormData() {
   const emailInput = document.querySelector('input[name="email"]');
   const passwordInput = document.querySelector('input[name="password"]');
   const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
-  console.log('emilinput', emailInput);
   return {
     email: emailInput.value,
     password: passwordInput.value,
@@ -161,10 +170,34 @@ function getFormData() {
 async function attemptSignIn(e) {
   e.preventDefault();
   const formData = getFormData();
-  const errors = validatorForm(formData.email, formData.password, formData.confirmPassword);
+  const errors = validatorFormSignin(formData.email, formData.password, formData.confirmPassword);
+
+  // const emailInput = document.querySelector('input[name="email"]');
+  // const passwordInput = document.querySelector('input[name="password"]');
+  // const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
+
   document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
   document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
   document.getElementById('error-confirmPassword').innerHTML = errors.confirmPassword || '&nbsp';
+
+  if (errors.email) {
+    document.getElementById('input-email').classList.add('invalid');
+  } else {
+    document.getElementById('input-email').classList.add('valid');
+  }
+
+  if (errors.password) {
+    document.getElementById('input-password').classList.add('invalid');
+  } else {
+    document.getElementById('input-password').classList.add('valid');
+  }
+
+  if (errors.confirmPassword) {
+    document.getElementById('input-confirm-password').classList.add('invalid');
+  } else {
+    document.getElementById('input-confirm-password').classList.add('valid');
+  }
+
   if (errors.count > 0) {
     return;
   }

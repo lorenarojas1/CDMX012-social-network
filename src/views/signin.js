@@ -1,7 +1,7 @@
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 import { validatorFormSignin } from '../lib/validator.js';
-import { validatorAlert } from '../lib/validator-alert.js';
+import { changeInputView } from '../lib/changeViewErrors.js';
 
 /**
 * Cadena de texto HTML para la vista signin.
@@ -174,8 +174,7 @@ async function attemptSignIn(e) {
   e.preventDefault();
   const formData = getFormData();
   const errors = validatorFormSignin(formData.email, formData.password, formData.confirmPassword);
-  const messageAlert = validatorAlert(errors);
-  console.log('mensajes', messageAlert);
+  changeInputView(errors);
 
   if (errors.count > 0) {
     return;

@@ -1,7 +1,7 @@
 import { logInFirebase } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 import { validatorFormLogin } from '../lib/validator.js';
-import { validatorAlertLogin } from '../lib/validator-alert.js';
+import { changeInputViewLogin } from '../lib/changeViewErrors.js';
 
 const view = /* html */ `
 <section class="logInSigninEmail" id="login-wrapper">
@@ -160,8 +160,7 @@ async function attemptLogIn(e) {
 
   const formData = getFormData();
   const errors = validatorFormLogin(formData.email, formData.password);
-  const messageAlert = validatorAlertLogin(errors);
-  console.log(messageAlert);
+  changeInputViewLogin(errors);
   if (errors.count > 0) {
     return;
   }

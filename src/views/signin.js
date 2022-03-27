@@ -1,7 +1,7 @@
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 import { validatorFormSignin } from '../lib/validator.js';
-import { changeInputView } from '../lib/changeViewErrors.js';
+import { changeInputView, errorsFirebaseSignin } from '../lib/changeViewErrors.js';
 
 /**
 * Cadena de texto HTML para la vista signin.
@@ -184,21 +184,7 @@ async function attemptSignIn(e) {
     await signInFirebase(formData.email, formData.password);
   } catch (error) {
     console.log(error);
-    const messageError = document.getElementById('mensajeError');
-    const errorEmail = document.getElementById('error-email');
-
-    if (error.code === 'auth/email-already-in-use') {
-      errorEmail.innerHTML = 'El correo ya está registrado';
-      document.getElementById('input-email').classList.remove('valid');
-      document.getElementById('input-email').classList.add('invalid');
-
-      document.getElementById('input-password').classList.remove('valid');
-      document.getElementById('input-password').classList.add('invalid');
-
-      document.getElementById('input-confirm-password').classList.remove('valid');
-      document.getElementById('input-confirm-password').classList.add('invalid');
-    } else { messageError.innerHTML = 'No se pudo realizar el registro'; }
-
+    errorsFirebaseSignin(error);
     console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
     return;
   }
@@ -210,7 +196,8 @@ async function attemptSignIn(e) {
       console.error('manejar error por no poder enviar email', err);
     }
   }
-
+  // luego de mandar email para verificar mostrar ventana
+  // modal para informar al usuario que revise su bandeja de entrada
   navigateTo('/homeUser');
 }
 

@@ -1,7 +1,7 @@
 import { logInFirebase } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 import { validatorFormLogin } from '../lib/validator.js';
-import { changeInputViewLogin } from '../lib/changeViewErrors.js';
+import { changeInputViewLogin, errorsFirebaseLogin } from '../lib/changeViewErrors.js';
 
 const view = /* html */ `
 <section class="logInSigninEmail" id="login-wrapper">
@@ -168,24 +168,7 @@ async function attemptLogIn(e) {
   try {
     await logInFirebase(formData.email, formData.password);
   } catch (error) {
-    const messageError = document.getElementById('mensajeError');
-    const errorPass = document.getElementById('error-password');
-    const errorEmail = document.getElementById('error-email');
-
-    if (error.code === 'auth/user-not-found') {
-      document.getElementById('inputEmail').classList.remove('valid');
-      document.getElementById('inputEmail').classList.add('invalid');
-      errorEmail.innerHTML = 'El correo no está registrado' || '&nbsp';
-      document.getElementById('passwordEmail').classList.remove('valid');
-      document.getElementById('passwordEmail').classList.add('invalid');
-    } else if (error.code === 'auth/wrong-password') {
-      document.getElementById('passwordEmail').classList.remove('valid');
-      document.getElementById('passwordEmail').classList.add('invalid');
-      errorPass.innerHTML = 'Contraseña incorrecta';
-    } else {
-      messageError.innerHTML = 'No se pudo inicial  sesión';
-      // cuando son varios intentos fallidos por entrar firebase marca error
-    }
+    errorsFirebaseLogin(error);
     console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
     return;
   }

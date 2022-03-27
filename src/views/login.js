@@ -1,6 +1,7 @@
 import { logInFirebase } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 import { validatorFormLogin } from '../lib/validator.js';
+import { validatorAlertLogin } from '../lib/validator-alert.js';
 
 const view = /* html */ `
 <section class="logInSigninEmail" id="login-wrapper">
@@ -12,9 +13,13 @@ const view = /* html */ `
            <span class="error" id="error-email">&nbsp;</span>
        <div class="input-password">
            <input type='password' id='passwordEmail' name='password' placeholder='Contraseña'>
+          <!--  <svg xmlns="http://www.w3.org/2000/svg" class="img-fluid" viewBox="0 0 20 20" fill="currentColor">
+           <path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clip-rule="evenodd" />
+           <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+           </svg> -->
        </div>
           <span class="error" id="error-password">&nbsp;</span>
-        <p class='questionPassword'>¿Olvidaste tu contraseña?</p>
+       <!--  <p class='questionPassword'>¿Olvidaste tu contraseña?</p>-->
   
         <div class='buttonLogInEmail'>
            <button type="submit" class='logIn' id='buttonLogIn'>Iniciar sesión</button>
@@ -55,6 +60,7 @@ const view = /* html */ `
     color: #070e1f;
     box-sizing: border-box ;
     width:100%;
+    box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
 
   }   
 
@@ -74,6 +80,7 @@ const view = /* html */ `
    font-size: 18px;
    color: #070e1f;
    border: solid 2px #36a5f5;
+   box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
 }
 
   #login-wrapper button.logIn:hover{
@@ -82,6 +89,12 @@ const view = /* html */ `
     border: 2px solid #215f8d;
     font-weight: bold;
     cursor: pointer;
+}
+svg{
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 25px;
 }
 
 #login-wrapper .separador{
@@ -138,7 +151,6 @@ function getFormData() {
     password: passwordInput.value,
   };
 }
-
 /**
    * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
    * @param {event} e evento submit
@@ -147,34 +159,35 @@ async function attemptLogIn(e) {
   e.preventDefault();
 
   const formData = getFormData();
-  const errorsLogin = validatorFormLogin(formData.email, formData.password);
-
-  document.getElementById('error-email').innerHTML = errorsLogin.email || '&nbsp';
-  document.getElementById('error-password').innerHTML = errorsLogin.password || '&nbsp';
-
-  if (errorsLogin.email) {
-    document.getElementById('inputEmail').classList.add('invalid');
-  } else {
-    document.getElementById('inputEmail').classList.add('valid');
-  }
-
-  if (errorsLogin.password) {
-    document.getElementById('passwordEmail').classList.add('invalid');
-  } else {
-    document.getElementById('passwordEmail').classList.add('valid');
-  }
-
-  if (errorsLogin.count > 0) {
+  const errors = validatorFormLogin(formData.email, formData.password);
+  const messageAlert = validatorAlertLogin(errors);
+  console.log(messageAlert);
+  if (errors.count > 0) {
     return;
   }
 
   try {
     await logInFirebase(formData.email, formData.password);
   } catch (error) {
-    console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
     const messageError = document.getElementById('mensajeError');
-    messageError.innerHTML = 'No se pudo inicial  sesión';
-    // falta agregar que en caso de que no esté registrado mande mensaje
+    const errorPass = document.getElementById('error-password');
+    const errorEmail = document.getElementById('error-email');
+
+    if (error.code === 'auth/user-not-found') {
+      document.getElementById('inputEmail').classList.remove('valid');
+      document.getElementById('inputEmail').classList.add('invalid');
+      errorEmail.innerHTML = 'El correo no está registrado' || '&nbsp';
+      document.getElementById('passwordEmail').classList.remove('valid');
+      document.getElementById('passwordEmail').classList.add('invalid');
+    } else if (error.code === 'auth/wrong-password') {
+      document.getElementById('passwordEmail').classList.remove('valid');
+      document.getElementById('passwordEmail').classList.add('invalid');
+      errorPass.innerHTML = 'Contraseña incorrecta';
+    } else {
+      messageError.innerHTML = 'No se pudo inicial  sesión';
+      // cuando son varios intentos fallidos por entrar firebase marca error
+    }
+    console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
     return;
   }
 

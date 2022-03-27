@@ -1,6 +1,7 @@
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 import { validatorFormSignin } from '../lib/validator.js';
+import { validatorAlert } from '../lib/validator-alert.js';
 
 /**
 * Cadena de texto HTML para la vista signin.
@@ -64,7 +65,8 @@ const view = /* html */ `
     display: flex;
     flex-flow: column;
     box-sizing: border-box ;
-   
+    box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
+
 }
 #signin-wrapper input:focus {
     border: 2px solid #949292 ;
@@ -83,6 +85,7 @@ const view = /* html */ `
    font-size: 18px;
    color: #070e1f;
    border: solid 2px #36a5f5;
+   box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
 }
 
 #signin-wrapper #buttonSingIn:hover {
@@ -171,32 +174,8 @@ async function attemptSignIn(e) {
   e.preventDefault();
   const formData = getFormData();
   const errors = validatorFormSignin(formData.email, formData.password, formData.confirmPassword);
-
-  // const emailInput = document.querySelector('input[name="email"]');
-  // const passwordInput = document.querySelector('input[name="password"]');
-  // const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
-
-  document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
-  document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
-  document.getElementById('error-confirmPassword').innerHTML = errors.confirmPassword || '&nbsp';
-
-  if (errors.email) {
-    document.getElementById('input-email').classList.add('invalid');
-  } else {
-    document.getElementById('input-email').classList.add('valid');
-  }
-
-  if (errors.password) {
-    document.getElementById('input-password').classList.add('invalid');
-  } else {
-    document.getElementById('input-password').classList.add('valid');
-  }
-
-  if (errors.confirmPassword) {
-    document.getElementById('input-confirm-password').classList.add('invalid');
-  } else {
-    document.getElementById('input-confirm-password').classList.add('valid');
-  }
+  const messageAlert = validatorAlert(errors);
+  console.log('mensajes', messageAlert);
 
   if (errors.count > 0) {
     return;
@@ -205,10 +184,23 @@ async function attemptSignIn(e) {
   try {
     await signInFirebase(formData.email, formData.password);
   } catch (error) {
-    console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
+    console.log(error);
     const messageError = document.getElementById('mensajeError');
-    messageError.innerHTML = 'No se pudo realizar el registro';
-    // el usuario ya existe(personalizar los errores con firebase)
+    const errorEmail = document.getElementById('error-email');
+
+    if (error.code === 'auth/email-already-in-use') {
+      errorEmail.innerHTML = 'El correo ya está registrado';
+      document.getElementById('input-email').classList.remove('valid');
+      document.getElementById('input-email').classList.add('invalid');
+
+      document.getElementById('input-password').classList.remove('valid');
+      document.getElementById('input-password').classList.add('invalid');
+
+      document.getElementById('input-confirm-password').classList.remove('valid');
+      document.getElementById('input-confirm-password').classList.add('invalid');
+    } else { messageError.innerHTML = 'No se pudo realizar el registro'; }
+
+    console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
     return;
   }
 

@@ -9,6 +9,7 @@ describe('signInFirebase', () => {
     const resultado = await signInFirebase('q@q.com', '123456');
     expect(resultado).toStrictEqual({});
   });
+  // en caso de error, falta
 });
 
 describe('logInFirebase', () => {
@@ -16,4 +17,5 @@ describe('logInFirebase', () => {
     const resultado = await logInFirebase('q@q.com', '123456');
     expect(resultado).toStrictEqual({});
   });
+  // en caso de error falta
 });

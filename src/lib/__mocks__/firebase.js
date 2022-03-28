@@ -13,7 +13,9 @@ const signInWithEmailAndPassword = (auth, email, password) => Promise.resolve({}
 
 const onAuthStateChanged = (auth) => Promise.resolve({});
 
-const sendSignInLinkToEmail = (auth, email, actionCodeSettings) => Promise.resolve({});
+const sendEmailVerification = () => Promise.resolve({});
+
+// const sendSignInLinkToEmail = (auth, email, actionCodeSettings) => Promise.resolve({});
 
 const initializeApp = (firebaseConfig) => {
 
@@ -27,19 +29,10 @@ const signInFirebase = (email, password) => Promise.resolve({});
 
 const logInFirebase = (email, password) => Promise.resolve({});
 
-export { getAuth };
-export { signOut };
-export { createUserWithEmailAndPassword };
-export { signInWithEmailAndPassword };
-export { onAuthStateChanged };
-export { sendSignInLinkToEmail };
-export { initializeApp };
-export { getAnalytics };
+const emailVerification = () => Promise.resolve({});
 
-export { signInFirebase };
-export { logInFirebase };
-
-// export {
-//   getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-//   onAuthStateChanged, sendSignInLinkToEmail, initializeApp, getAnalytics,
-// };
+export {
+  getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  onAuthStateChanged, sendEmailVerification, initializeApp, getAnalytics,
+  signInFirebase, logInFirebase, emailVerification,
+};

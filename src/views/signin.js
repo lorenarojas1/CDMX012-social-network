@@ -191,11 +191,12 @@ async function attemptSignIn(e) {
 
   if (userState().emailVerified === false) {
     try {
-      await emailVerification(formData.email);
+      await emailVerification();
     } catch (err) {
       console.error('manejar error por no poder enviar email', err);
     }
   }
+
   // luego de mandar email para verificar mostrar ventana
   // modal para informar al usuario que revise su bandeja de entrada
   navigateTo('/homeUser');

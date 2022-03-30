@@ -1,7 +1,7 @@
 import { logInFirebase, userState } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 import { validatorFormLogin } from '../lib/validator.js';
-import { changeInputViewLogin, errorsFirebaseLogin } from '../lib/changeViewErrors.js';
+// import { changeInputViewLogin, errorsFirebaseLogin } from '../lib/changeViewErrors.js';
 
 const view = /* html */ `
 <section class="logInSigninEmail" id="login-wrapper">
@@ -160,7 +160,20 @@ async function attemptLogIn(e) {
 
   const formData = getFormData();
   const errors = validatorFormLogin(formData.email, formData.password);
-  changeInputViewLogin(errors);
+  // changeInputViewLogin(errors);
+  document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
+  document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
+
+  if (errors.email) {
+    document.getElementById('inputEmail').classList.add('invalid');
+  } else {
+    document.getElementById('inputEmail').classList.remove('invalid');
+  }
+  if (errors.password) {
+    document.getElementById('passwordEmail').classList.add('invalid');
+  } else {
+    document.getElementById('passwordEmail').classList.remove('invalid');
+  }
   if (errors.count > 0) {
     return;
   }
@@ -168,7 +181,23 @@ async function attemptLogIn(e) {
   try {
     await logInFirebase(formData.email, formData.password);
   } catch (error) {
-    errorsFirebaseLogin(error);
+    // errorsFirebaseLogin(error);
+    const errorEmail = document.getElementById('error-email');
+    const errorPass = document.getElementById('error-password');
+    const messageError = document.getElementById('mensajeError');
+
+    if (error.code === 'auth/user-not-found') {
+      document.getElementById('inputEmail').classList.add('invalid');
+      errorEmail.innerHTML = 'El correo no está registrado' || '&nbsp';
+      document.getElementById('passwordEmail').classList.add('invalid');
+    } else if (error.code === 'auth/wrong-password') {
+      document.getElementById('passwordEmail').classList.add('invalid');
+      errorPass.innerHTML = 'Contraseña incorrecta';
+    } else {
+      messageError.innerHTML = 'No se pudo inicial  sesión';
+    // cuando son varios intentos fallidos por entrar a la cuenta,
+    // firebase marca error y bloquea temporalmente la cuenta
+    }
     console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
     return;
   }

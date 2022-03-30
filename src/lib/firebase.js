@@ -27,7 +27,7 @@ const analytics = getAnalytics(app);
 console.log(analytics);
 
 const auth = getAuth();
-console.log('que tiene auth?', auth);
+// console.log('que tiene auth?', auth);
 
 // observador de estado de autenticación y obtén datos del usuario
 let userActual;
@@ -57,6 +57,8 @@ onAuthStateChanged(auth, (user) => {
     // const tenantId = user.tenantId;
 
     userActual = user;
+    console.log('user', userActual);
+
     // authInitPromise = Promise.resolve(user);
   } else {
     // User is signed out

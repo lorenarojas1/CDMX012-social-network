@@ -1,4 +1,5 @@
 import { userState, waitForAuthLoad } from '../lib/firebase.js';
+import { navigateTo } from '../lib/navigator.js';
 
 const view = /* html */ `
 <section class="waitingRoom" id="waitingRoom-wrapper">
@@ -10,6 +11,7 @@ const view = /* html */ `
        <p id="error-Message"></p>
        <h3>¿Ya?</h3>
        <button id="button-go">Continuar</button>
+       <span class="error" id="error-verification">&nbsp;</span>
     </div>
 </section>
 <style>
@@ -62,6 +64,14 @@ export default {
     const email = document.getElementById('email');
     email.innerHTML = user.email;
 
-    // document.getElementById('button-go').addEventListener('click', () => emailVerified);
+    document.getElementById('button-go').addEventListener('click', () => {
+      if (user.emailVerified === true) {
+        navigateTo('/homeUser');
+      } else {
+        const messageError = document.getElementById('error-verification');
+        messageError.innerHTML = 'Aun no verificas tu correo';
+      }
+    });
   },
+
 };

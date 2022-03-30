@@ -1,3 +1,5 @@
+// import { navigateTo } from './navigator.js';
+
 export function changeInputView(errors) {
   document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
   document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
@@ -32,6 +34,18 @@ export function errorsFirebaseSignin(error) {
   } else { messageError.innerHTML = 'No se pudo realizar el registro'; }
 }
 
+export function modalWindow() {
+  const modalMessage = document.getElementById('modal_container');
+  const closeModalMessage = document.getElementById('modal_close');
+
+  modalMessage.classList.add('show');
+
+  closeModalMessage.addEventListener('click', () => {
+    modalMessage.classList.remove('show');
+    // navigateTo('/');
+  });
+}
+
 export function changeInputViewLogin(errors) {
   document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
   document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
@@ -49,9 +63,9 @@ export function changeInputViewLogin(errors) {
 }
 
 export function errorsFirebaseLogin(error) {
-  const messageError = document.getElementById('mensajeError');
-  const errorPass = document.getElementById('error-password');
   const errorEmail = document.getElementById('error-email');
+  const errorPass = document.getElementById('error-password');
+  const messageError = document.getElementById('mensajeError');
 
   if (error.code === 'auth/user-not-found') {
     document.getElementById('inputEmail').classList.add('invalid');

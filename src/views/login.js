@@ -1,4 +1,4 @@
-import { logInFirebase } from '../lib/firebase.js';
+import { logInFirebase, userState } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 import { validatorFormLogin } from '../lib/validator.js';
 import { changeInputViewLogin, errorsFirebaseLogin } from '../lib/changeViewErrors.js';
@@ -172,9 +172,12 @@ async function attemptLogIn(e) {
     console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
     return;
   }
-
-  // despues que el registro fue exitoso, cambiar de vista
-  navigateTo('/homeUser');
+  if (userState().emailVerified === true) {
+    navigateTo('/homeUser');
+  } else {
+    const errorEmail = document.getElementById('error-email');
+    errorEmail.innerHTML = 'El correo no está verificado';
+  }
 }
 
 export default {

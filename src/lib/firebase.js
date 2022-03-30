@@ -1,7 +1,6 @@
-/* eslint-disable import/no-unresolved */
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js';
-import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js';
 import {
+  initializeApp,
+  getAnalytics,
   getAuth,
   signOut,
   createUserWithEmailAndPassword,
@@ -9,21 +8,7 @@ import {
   onAuthStateChanged,
   // sendSignInLinkToEmail,
   sendEmailVerification,
-} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
-
-export { initializeApp };
-export { getAnalytics };
-
-export {
-  getAuth,
-  signOut,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-  // sendSignInLinkToEmail,
-  sendEmailVerification,
-
-};
+} from './firebase-import.js';
 
 const firebaseConfig = {
 
@@ -42,11 +27,18 @@ const analytics = getAnalytics(app);
 console.log(analytics);
 
 const auth = getAuth();
+console.log('que tiene auth?', auth);
 
 // observador de estado de autenticación y obtén datos del usuario
 let userActual;
 
+let authLoadResolve;
+const authLoadPromise = new Promise((resolve) => {
+  authLoadResolve = resolve;
+});
+
 onAuthStateChanged(auth, (user) => {
+  authLoadResolve();
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
@@ -64,13 +56,18 @@ onAuthStateChanged(auth, (user) => {
     // const refreshToken = user.refreshToken;
     // const tenantId = user.tenantId;
 
-    console.log(user);
     userActual = user;
+    // authInitPromise = Promise.resolve(user);
   } else {
     // User is signed out
     userActual = undefined;
+    // authInitPromise.resolve(undefined);
   }
 });
+
+export const waitForAuthLoad = () => authLoadPromise;
+
+export const getUserPromise = () => authLoadPromise;
 
 export const userState = () => userActual;
 

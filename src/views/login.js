@@ -197,6 +197,7 @@ async function attemptLogIn(e) {
       messageError.innerHTML = 'No se pudo inicial  sesión';
     // cuando son varios intentos fallidos por entrar a la cuenta,
     // firebase marca error y bloquea temporalmente la cuenta
+    // code=auth/too-many-requests
     }
     console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
     return;

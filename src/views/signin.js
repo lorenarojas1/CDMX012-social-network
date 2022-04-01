@@ -244,7 +244,6 @@ function getFormData() {
  * @param {event} e evento submit
  */
 async function attemptSignIn(e) {
-  console.log('resultado validacion', e);
   e.preventDefault();
   const formData = getFormData();
   console.log('resultado validacion', formData);
@@ -283,13 +282,16 @@ async function attemptSignIn(e) {
     const messageError = document.getElementById('mensajeError');
     const errorEmail = document.getElementById('error-email');
 
+    console.log('errorcode', error.code, error.code === 'auth/email-already-in-use');
     if (error.code === 'auth/email-already-in-use') {
       errorEmail.innerHTML = 'El correo ya está registrado';
       document.getElementById('input-email').classList.add('invalid');
       document.getElementById('input-password').classList.add('invalid');
       document.getElementById('input-confirm-password').classList.add('invalid');
-    } else { messageError.innerHTML = 'No se pudo realizar el registro'; }
-    console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
+    } else {
+      messageError.innerHTML = 'No se pudo realizar el registro';
+      console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
+    }
     return;
   }
 
@@ -298,19 +300,19 @@ async function attemptSignIn(e) {
       await emailVerification();
     } catch (err) {
       console.error('manejar error por no poder enviar email', err);
-      return;
+      // return;
     }
 
     // modalWindow();
-    const modalMessage = document.getElementById('modal_container');
-    const closeModalMessage = document.getElementById('modal_close');
+    // const modalMessage = document.getElementById('modal_container');
+    // const closeModalMessage = document.getElementById('modal_close');
 
-    modalMessage.classList.add('show');
+    // modalMessage.classList.add('show');
 
-    closeModalMessage.addEventListener('click', () => {
-      modalMessage.classList.remove('show');
-    // navigateTo('/');
-    });
+    // closeModalMessage.addEventListener('click', () => {
+    //   modalMessage.classList.remove('show');
+    // // navigateTo('/');
+    // });
   }
 
   // al ingresar la cuenta se tiene que actualizar la página para que cuente la validación

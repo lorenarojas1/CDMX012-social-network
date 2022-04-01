@@ -1,38 +1,12 @@
-// import { signInFirebase } from "../firebase";
+export const signInFirebase = jest.fn();
 
-/* eslint-disable no-unused-vars */
-const getAuth = jest.fn(() => {
+// eslint-disable-next-line no-unused-vars
+// export const signInFirebase = (auth, email, password) => Promise.resolve({});
 
-});
+// export const signInFirebase = jest.fn(() => {
+//     Promise.resolve({});
+//   });
 
-const signOut = (auth) => Promise.resolve({});
+export const userState = jest.fn();
 
-const createUserWithEmailAndPassword = (auth, email, password) => Promise.resolve({});
-
-const signInWithEmailAndPassword = (auth, email, password) => Promise.resolve({});
-
-const onAuthStateChanged = (auth) => Promise.resolve({});
-
-const sendEmailVerification = () => Promise.resolve({});
-
-// const sendSignInLinkToEmail = (auth, email, actionCodeSettings) => Promise.resolve({});
-
-const initializeApp = (firebaseConfig) => {
-
-};
-
-const getAnalytics = (app) => {
-
-};
-
-const signInFirebase = (email, password) => Promise.resolve({});
-
-const logInFirebase = (email, password) => Promise.resolve({});
-
-const emailVerification = () => Promise.resolve({});
-
-export {
-  getAuth, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-  onAuthStateChanged, sendEmailVerification, initializeApp, getAnalytics,
-  signInFirebase, logInFirebase, emailVerification,
-};
+export const emailVerification = jest.fn();

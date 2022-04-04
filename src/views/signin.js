@@ -1,92 +1,15 @@
-/* eslint-disable import/no-cycle */
-
 /* eslint-disable no-unused-vars */
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
-import { navigateTo } from '../router/router.js';
+import { navigateTo } from '../lib/navigator.js';
 import { validatorFormSignin } from '../lib/validator.js';
+// import { changeInputView, errorsFirebaseSignin, modalWindow } from '../lib/changeViewErrors.js';
 
 /**
- * Lee los inputs del formulario y regresa un objeto con sus valores
- * @returns valores del formulario
+* Cadena de texto HTML para la vista signin.
+ * Incluye sus estilos protegidos por un elemento wrapper,
+ * para no afectar a elementos de otras vistas.
  */
- function getFormData() {
-  const emailInput = document.querySelector('input[name="email"]');
-  const passwordInput = document.querySelector('input[name="password"]');
-  const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
-  return {
-    email: emailInput.value,
-    password: passwordInput.value,
-    confirmPassword: confirmPasswordInput.value,
-  };
-}
-
-/**
- * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
- * @param {event} e evento submit
- */
-async function attemptSignIn(e) {
-  e.preventDefault();
-  const formData = getFormData();
-  console.log('resultado validacion', formData);
-  const errors = validatorFormSignin(formData.email, formData.password, formData.confirmPassword);
-  console.log('resultado validacion jgfdfg', errors);
-  // changeInputView(errors);
-  document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
-  document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
-  document.getElementById('error-confirmPassword').innerHTML = errors.confirmPassword || '&nbsp';
-
-  if (errors.email) {
-    document.getElementById('input-email').classList.add('invalid');
-  } else {
-    document.getElementById('input-email').classList.remove('invalid');
-  }
-  if (errors.password) {
-    document.getElementById('input-password').classList.add('invalid');
-  } else {
-    document.getElementById('input-password').classList.remove('invalid');
-  }
-  if (errors.confirmPassword) {
-    document.getElementById('input-confirm-password').classList.add('invalid');
-  } else {
-    document.getElementById('input-confirm-password').classList.remove('invalid');
-  }
-
-  if (errors.count > 0) {
-    return;
-  }
-
-  try {
-    await signInFirebase(formData.email, formData.password);
-  } catch (error) {
-    console.log(error);
-    // errorsFirebaseSignin(error);
-    const messageError = document.getElementById('mensajeError');
-    const errorEmail = document.getElementById('error-email');
-
-    console.log('errorcode', error.code, error.code === 'auth/email-already-in-use');
-    if (error.code === 'auth/email-already-in-use') {
-      errorEmail.innerHTML = 'El correo ya está registrado';
-      document.getElementById('input-email').classList.add('invalid');
-      document.getElementById('input-password').classList.add('invalid');
-      document.getElementById('input-confirm-password').classList.add('invalid');
-    } else {
-      messageError.innerHTML = 'No se pudo realizar el registro';
-      console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
-    }
-    return;
-  }
-
-  if (userState().emailVerified === false) {
-    try {
-      await emailVerification();
-    } catch (err) {
-      console.error('manejar error por no poder enviar email', err);
-    }
-  }
-}
-
-export const signin = () => {
-  const view = /* html */ `
+const view = /* html */ `
 <section class="logInSigninEmail" id="signin-wrapper">
   <div class="contenido-signin">
   <form>
@@ -301,12 +224,107 @@ export const signin = () => {
 </style>
 `;
 
-  const signupContainer = document.createElement('div');
-  signupContainer.innerHTML = view;
-  document.body.appendChild(signupContainer);
+/**
+ * Lee los inputs del formulario y regresa un objeto con sus valores
+ * @returns valores del formulario
+ */
+function getFormData() {
+  const emailInput = document.querySelector('input[name="email"]');
+  const passwordInput = document.querySelector('input[name="password"]');
+  const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
+  return {
+    email: emailInput.value,
+    password: passwordInput.value,
+    confirmPassword: confirmPasswordInput.value,
+  };
+}
 
-  document.getElementById('login-link').addEventListener('click', () => navigateTo('/login'));
-  document.querySelector('form').addEventListener('submit', attemptSignIn);
+/**
+ * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
+ * @param {event} e evento submit
+ */
+async function attemptSignIn(e) {
+  e.preventDefault();
+  const formData = getFormData();
+  console.log('resultado validacion', formData);
+  const errors = validatorFormSignin(formData.email, formData.password, formData.confirmPassword);
+  console.log('resultado validacion jgfdfg', errors);
+  // changeInputView(errors);
+  document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
+  document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
+  document.getElementById('error-confirmPassword').innerHTML = errors.confirmPassword || '&nbsp';
 
-  return signupContainer;
+  if (errors.email) {
+    document.getElementById('input-email').classList.add('invalid');
+  } else {
+    document.getElementById('input-email').classList.remove('invalid');
+  }
+  if (errors.password) {
+    document.getElementById('input-password').classList.add('invalid');
+  } else {
+    document.getElementById('input-password').classList.remove('invalid');
+  }
+  if (errors.confirmPassword) {
+    document.getElementById('input-confirm-password').classList.add('invalid');
+  } else {
+    document.getElementById('input-confirm-password').classList.remove('invalid');
+  }
+
+  if (errors.count > 0) {
+    return;
+  }
+
+  try {
+    await signInFirebase(formData.email, formData.password);
+  } catch (error) {
+    console.log(error);
+    // errorsFirebaseSignin(error);
+    const messageError = document.getElementById('mensajeError');
+    const errorEmail = document.getElementById('error-email');
+
+    console.log('errorcode', error.code, error.code === 'auth/email-already-in-use');
+    if (error.code === 'auth/email-already-in-use') {
+      errorEmail.innerHTML = 'El correo ya está registrado';
+      document.getElementById('input-email').classList.add('invalid');
+      document.getElementById('input-password').classList.add('invalid');
+      document.getElementById('input-confirm-password').classList.add('invalid');
+    } else {
+      messageError.innerHTML = 'No se pudo realizar el registro';
+      console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
+    }
+    return;
+  }
+
+  if (userState().emailVerified === false) {
+    try {
+      await emailVerification();
+    } catch (err) {
+      console.error('manejar error por no poder enviar email', err);
+      // return;
+    }
+
+    // modalWindow();
+    // const modalMessage = document.getElementById('modal_container');
+    // const closeModalMessage = document.getElementById('modal_close');
+
+    // modalMessage.classList.add('show');
+
+    // closeModalMessage.addEventListener('click', () => {
+    //   modalMessage.classList.remove('show');
+    // // navigateTo('/');
+    // });
+  }
+
+  // al ingresar la cuenta se tiene que actualizar la página para que cuente la validación
+}
+
+/**
+ * Objecto vista para signin.
+ */
+export default {
+  render: () => view,
+  afterRender: () => {
+    document.getElementById('login-link').addEventListener('click', () => navigateTo('/login'));
+    document.querySelector('form').addEventListener('submit', attemptSignIn);
+  },
 };

@@ -6,16 +6,16 @@ import { listPosts } from './post.js';
 export function main() {
   // Home
   const mainPages = document.createElement('section');
-  //mainPages.appendChild(loadNavbar());
+  // mainPages.appendChild(loadNavbar());
 
   // Contenedor de Home
   const container = document.createElement('section');
-  //container.classList.add('container-home');
+  // container.classList.add('container-home');
   container.classList.add('content');
 
   // -----  Seccion principal de Home (Posts)
-  //const sectionPostHome = document.createElement('section');
-  //sectionPostHome.classList.add('posts-home');
+  // const sectionPostHome = document.createElement('section');
+  // sectionPostHome.classList.add('posts-home');
 
   const sectionPostHome = document.createElement('div');
   sectionPostHome.classList.add('mainnofixed');
@@ -41,22 +41,21 @@ export function main() {
   nameText.textContent = 'Nombre';
   nameText.style.top = '15px';
 
-
   // TextArea del form
   const boxMessage = document.createElement('p');
   boxMessage.classList.add('quotes');
   const textAreaFormHome = document.createElement('textArea');
   textAreaFormHome.classList.add('description-Posts');
   textAreaFormHome.id = 'mypara';
-  //textAreaFormHome.id = 'descriptionPosts';
+  // textAreaFormHome.id = 'descriptionPosts';
   textAreaFormHome.name = 'description-posts';
   textAreaFormHome.placeholder = 'Comparte un artículo, foto, video o idea...';
 
-  //const boxMessage = document.createElement('p');
-  //boxMessage.classList.add('quotes');
-  //const textMessage = document.createElement('textarea');
-  //textMessage.setAttribute('id', 'mypara');
-  //textMessage.setAttribute('placeholder', 'comparte un artículo, foto, video o idea...');
+  // const boxMessage = document.createElement('p');
+  // boxMessage.classList.add('quotes');
+  // const textMessage = document.createElement('textarea');
+  // textMessage.setAttribute('id', 'mypara');
+  // textMessage.setAttribute('placeholder', 'comparte un artículo, foto, video o idea...');
 
   const post = document.createElement('div');
   post.classList.add('post');
@@ -92,11 +91,11 @@ export function main() {
   btnSendPost.id = 'postmypost';
   btnSendPost.innerText = 'Enviar';
 
-  //const buttonSendPost = document.createElement('button');
-  //buttonSendPost.classList.add('postmypost');
-  //buttonSendPost.setAttribute('type', 'button');
-  //buttonSendPost.setAttribute('id', 'postmypost');
- // buttonSendPost.textContent = 'Enviar';
+  // const buttonSendPost = document.createElement('button');
+  // buttonSendPost.classList.add('postmypost');
+  // buttonSendPost.setAttribute('type', 'button');
+  // buttonSendPost.setAttribute('id', 'postmypost');
+  // buttonSendPost.textContent = 'Enviar';
 
   formHome.appendChild(userImageBox);
   userImageBox.appendChild(userImage);
@@ -129,14 +128,14 @@ export function main() {
   return mainPages;
 }
 
-/*export function main() {
+/* export function main() {
   // Home user
   const mainPage = document.createElement('main');
   mainPage.classList.add('content');
   const mainNoFixed = document.createElement('div');
   mainNoFixed.classList.add('mainnofixed');
   mainNoFixed.setAttribute('id', 'mainnofixed');
-  
+
   // Escribir un post
   const mainPost = document.createElement('div');
   mainPost.classList.add('main');
@@ -204,7 +203,6 @@ export function main() {
 
   mainPage.append(mainNoFixed);
   mainNoFixed.appendChild(mainPost, allPost);
-  
 
   mainPost.append(userImageBox, userName, boxMessage, post, postBar);
 
@@ -217,7 +215,5 @@ export function main() {
 
   mainNoFixed.appendChild(listPosts(mainPost, buttonSendPost));
 
-
   return mainPage;
-}*/
-
+} */

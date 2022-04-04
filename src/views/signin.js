@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
+import { validatorFormSignin } from '../lib/validator.js';
+// import { changeInputView, errorsFirebaseSignin, modalWindow } from '../lib/changeViewErrors.js';
 
-// eslint-disable-next-line no-useless-escape
-const expRegEmail = /^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/;
 /**
 * Cadena de texto HTML para la vista signin.
  * Incluye sus estilos protegidos por un elemento wrapper,
@@ -13,7 +14,7 @@ const view = /* html */ `
   <div class="contenido-signin">
   <form>
       <div class="input-email">
-         <div><input type="email" name="email" id='input-email' placeholder='Correo Electrónico'></div>
+         <div><input type="email" class="border" name="email" id="input-email" novalidate="true" placeholder="Correo Electrónico"></div>
          <span class="error" id="error-email">&nbsp;</span>
       </div>
       <div class="input-email">
@@ -38,6 +39,20 @@ const view = /* html */ `
     </div>
     <img class="img-fluid" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVlJREFUSEvNlYExBEEQRd9lIANEQAbIgAgQwREBIkAGREAGiIDLgAyIgHpqRrUxO7N3Vaeuq7bqamfu/+7+3X8nLDkmS8ZnJQh2gR1gOz1rwEt6roHXVhdaFQh0CRx12ngPHAPvtXtDBGZ7B2yM1MhKTsYSmPnzAPhTArFlOW5bVdYquAEOA8BHArAVMc4Bk6lmni+WBAr6UID7TlEXipLArM4C0gFQZj4XUUnwmEZyqELfe+ezwXIaKy4JnOn19GcFtT1ltMC9ewHYie/4d4KxLYpVOUlbQ7r1RLafVx1VPZ+GO5vRPnpj6vrvNcbUjXesrcJ4Kxe0tmhlRpIomnYQQ4/SqzK4Z3qSi/oTNYLslnma4n0XTsLadM2S2/7KomV2LliNpCaJ4JL+cdSeXduaKGANXLPTj+ay6wikkPtJPH/bQhfSkbbfC39wOtM57nglvsnjUh249QX0WEAZ2ArXmQAAAABJRU5ErkJggg=="/>
   </div>
+
+  <div class="modal-container" id="modal_container">
+        <div class="modal">
+            <div class="modal-close">
+                <p class="close" id="modal_close" >x</p>
+            </div>
+            <h1>¡Listo! Revisa tu correo</h1>
+            <p>Para continuar se requiere una verificación de correo. Por favor revisa tu buzón de correo y sigue las instrucciones enviadas. El correo fue enviado a:</p>
+        
+            <p>ejemplo@correo.com</p>
+        
+             <!--<button id="close-modal">Ok</button>-->
+        </div>
+  </div>
 </section>
 
 
@@ -46,13 +61,14 @@ const view = /* html */ `
 .contenido-signin {
   width:100%;
   margin-top: 200px;
-  box-sizing: border-box 
+  box-sizing: border-box; 
 }
 #signin-wrapper .question{
     margin-top:0px;
     font-size: 15px;
     display: contents;
   }
+  
 #signin-wrapper input {
     border: 2px solid #ccc;
     border-radius: 10px;
@@ -64,7 +80,8 @@ const view = /* html */ `
     display: flex;
     flex-flow: column;
     box-sizing: border-box ;
-   
+    box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
+
 }
 #signin-wrapper input:focus {
     border: 2px solid #949292 ;
@@ -77,12 +94,13 @@ const view = /* html */ `
 
 #signin-wrapper #buttonSingIn {
   width:100%;
-    padding: 15px;
-    border-radius: 10px;
-   background: #74C3FC;
+  padding: 15px;
+  border-radius: 10px;
+  background: #74C3FC;
    font-size: 18px;
    color: #070e1f;
    border: solid 2px #36a5f5;
+   box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
 }
 
 #signin-wrapper #buttonSingIn:hover {
@@ -123,6 +141,73 @@ const view = /* html */ `
     display: block;
     width: 100%;
 }
+#signin-wrapper input.invalid {
+  border: 2px solid red;
+  }
+
+
+  #signin-wrapper input.valid{
+  border: 2px solid green;
+  }
+
+  .modal-container{
+  /*  display: none;
+     visibility: hidden;
+      */
+    
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    pointer-events: none;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box; 
+   
+  }
+
+  .show {
+    pointer-events: auto;
+    opacity: 1;
+  }
+
+  .modal{
+    background: #fff;
+    border-radius: 10px;
+    margin: auto;
+    width: 30rem;
+    max-width: 80%;
+    padding: 30px;
+    padding-top: 0;
+    margin: 50px;
+    text-align: center;
+  }
+
+  .modal-close{
+    display: flex;
+    justify-content: end;
+    padding-top: 10px;
+  }
+
+  .modal-close .close{
+    display: flex;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    background: #c44a4a;
+    color: #fff;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .modal h1{
+    margin:0;
+  }
+
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
 
@@ -147,7 +232,6 @@ function getFormData() {
   const emailInput = document.querySelector('input[name="email"]');
   const passwordInput = document.querySelector('input[name="password"]');
   const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
-  console.log('emilinput', emailInput);
   return {
     email: emailInput.value,
     password: passwordInput.value,
@@ -155,48 +239,6 @@ function getFormData() {
   };
 }
 
-function dataValidation(formData) {
-  // const emailInput = document.querySelector('input[name="email"]');
-  // const passwordInput = document.querySelector('input[name="password"]');
-  // const confirmPasswordInput = document.querySelector('input[name="confirmPassword"]');
-  const messageInput1 = document.getElementById('error-email');
-  const messageInput2 = document.getElementById('error-password');
-  const messageInput3 = document.getElementById('error-confirmPassword');
-  let email = false;
-  let password = false;
-  let confirmPassword = false;
-
-  if ((expRegEmail.test(formData.email)) !== true) {
-    // emailInput.style.border = '2px solid red';
-    messageInput1.innerHTML = 'Correo inválido';
-  } else {
-    // emailInput.style.border = '2px solid #ccc';
-    messageInput1.innerHTML = '&nbsp;';
-    email = true;
-  }
-  if (formData.password.length < 6) {
-    // passwordInput.style.border = '2px solid red';
-    messageInput2.innerHTML = 'Requiere al menos 6 caracteres';
-  } else if (formData.password.includes(' ')) {
-    // passwordInput.style.border = '2px solid red';
-    messageInput2.innerHTML = 'No puede incluir espacios vacios';
-  } else {
-    // passwordInput.style.border = '2px solid #ccc';
-    messageInput2.innerHTML = '&nbsp;';
-    password = true;
-  }
-  if (formData.password !== formData.confirmPassword) {
-    // passwordInput.style.border = '2px solid red';
-    // confirmPasswordInput.style.border = '2px solid red';
-    messageInput3.innerHTML = 'Las contraseñas no son iguales';
-  } else {
-    // passwordInput.style.border = '2px solid #ccc';
-    // confirmPasswordInput.style.border = '2px solid #ccc';
-    messageInput3.innerHTML = '&nbsp;';
-    confirmPassword = true;
-  }
-  return (email && password && confirmPassword);
-}
 /**
  * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
  * @param {event} e evento submit
@@ -204,36 +246,76 @@ function dataValidation(formData) {
 async function attemptSignIn(e) {
   e.preventDefault();
   const formData = getFormData();
-  if (dataValidation(formData) !== true) {
+  console.log('resultado validacion', formData);
+  const errors = validatorFormSignin(formData.email, formData.password, formData.confirmPassword);
+  console.log('resultado validacion jgfdfg', errors);
+  // changeInputView(errors);
+  document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
+  document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
+  document.getElementById('error-confirmPassword').innerHTML = errors.confirmPassword || '&nbsp';
+
+  if (errors.email) {
+    document.getElementById('input-email').classList.add('invalid');
+  } else {
+    document.getElementById('input-email').classList.remove('invalid');
+  }
+  if (errors.password) {
+    document.getElementById('input-password').classList.add('invalid');
+  } else {
+    document.getElementById('input-password').classList.remove('invalid');
+  }
+  if (errors.confirmPassword) {
+    document.getElementById('input-confirm-password').classList.add('invalid');
+  } else {
+    document.getElementById('input-confirm-password').classList.remove('invalid');
+  }
+
+  if (errors.count > 0) {
     return;
   }
 
   try {
     await signInFirebase(formData.email, formData.password);
   } catch (error) {
-    console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
+    console.log(error);
+    // errorsFirebaseSignin(error);
     const messageError = document.getElementById('mensajeError');
-    messageError.innerHTML = 'No se pudo realizar el registro';
-    // el usuario ya existe(personalizar los errores con firebase)
+    const errorEmail = document.getElementById('error-email');
+
+    console.log('errorcode', error.code, error.code === 'auth/email-already-in-use');
+    if (error.code === 'auth/email-already-in-use') {
+      errorEmail.innerHTML = 'El correo ya está registrado';
+      document.getElementById('input-email').classList.add('invalid');
+      document.getElementById('input-password').classList.add('invalid');
+      document.getElementById('input-confirm-password').classList.add('invalid');
+    } else {
+      messageError.innerHTML = 'No se pudo realizar el registro';
+      console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
+    }
     return;
   }
 
   if (userState().emailVerified === false) {
     try {
-      await emailVerification(formData.email);
+      await emailVerification();
     } catch (err) {
       console.error('manejar error por no poder enviar email', err);
+      // return;
     }
 
-    document.getElementById('input-email').value = '';
-    document.getElementById('input-password').value = '';
-    document.getElementById('input-confirm-password').value = '';
+    // modalWindow();
+    // const modalMessage = document.getElementById('modal_container');
+    // const closeModalMessage = document.getElementById('modal_close');
 
-    // desplegar mensaje
-    // alert('se envio correo de verificación');
+    // modalMessage.classList.add('show');
+
+    // closeModalMessage.addEventListener('click', () => {
+    //   modalMessage.classList.remove('show');
+    // // navigateTo('/');
+    // });
   }
 
-  navigateTo('/homeUser');
+  // al ingresar la cuenta se tiene que actualizar la página para que cuente la validación
 }
 
 /**

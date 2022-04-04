@@ -1,87 +1,77 @@
-/* eslint-disable import/no-unresolved */
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js';
-import { getAnalytics } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-analytics.js';
 import {
+  initializeApp,
+  getAnalytics,
   getAuth,
   signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
-  sendSignInLinkToEmail,
-} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js';
+  // sendSignInLinkToEmail,
+  sendEmailVerification,
+} from './firebase-import.js';
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyBV1upmSkvZp-qyFv_0YRBVJb-2luXPivQ",
-    authDomain: "data2-64c71.firebaseapp.com",
-    projectId: "data2-64c71",
-    storageBucket: "data2-64c71.appspot.com",
-    messagingSenderId: "914295642551",
-    appId: "1:914295642551:web:3aaab72cfb317c0d233032"
-  
+  apiKey: 'AIzaSyBV1upmSkvZp-qyFv_0YRBVJb-2luXPivQ',
+  authDomain: 'data2-64c71.firebaseapp.com',
+  projectId: 'data2-64c71',
+  storageBucket: 'data2-64c71.appspot.com',
+  messagingSenderId: '914295642551',
+  appId: '1:914295642551:web:3aaab72cfb317c0d233032',
+
 };
 
-// Proporciona a Firebase las instrucciones para construir el vínculo de correo electrónico.
-
-const actionCodeSettings = {
-  // URL you want to redirect back to. The domain (www.example.com) for this
-  // URL must be in the authorized domains list in the Firebase Console.
-  url: 'www.google.com/',
-  // This must be true.
-  handleCodeInApp: true,
-  iOS: {
-    bundleId: 'com.example.ios',
-  },
-  android: {
-    packageName: 'com.example.android',
-    installApp: true,
-    minimumVersion: '12',
-  },
-  dynamicLinkDomain: 'example.page.link',
-};
-
-// // Initialize Firebase
+// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 console.log(analytics);
 
 const auth = getAuth();
+// console.log('que tiene auth?', auth);
 
 // observador de estado de autenticación y obtén datos del usuario
 let userActual;
-// let userEmailVerification;
+
+let authLoadResolve;
+const authLoadPromise = new Promise((resolve) => {
+  authLoadResolve = resolve;
+});
 
 onAuthStateChanged(auth, (user) => {
+  authLoadResolve();
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
-    const uid = user.uid;
-    const displayName = user.displayName;
-    const email = user.email;
-    const emailVerified = user.emailVerified;
-    const isAnonymous = user.isAnonymous;
-    const metadata = user.metadata;
-    const multiFactor = user.multiFactor;
-    const phoneNumber = user.phoneNumber;
-    const photoURL = user.photoURL;
-    const providerData = user.providerData;
-    const providerId = user.providerId;
-    const refreshToken = user.refreshToken;
-    const tenantId = user.tenantId;
+    // const uid = user.uid;
+    // const displayName = user.displayName;
+    // const email = user.email;
+    // const emailVerified = user.emailVerified;
+    // const isAnonymous = user.isAnonymous;
+    // const metadata = user.metadata;
+    // const multiFactor = user.multiFactor;
+    // const phoneNumber = user.phoneNumber;
+    // const photoURL = user.photoURL;
+    // const providerData = user.providerData;
+    // const providerId = user.providerId;
+    // const refreshToken = user.refreshToken;
+    // const tenantId = user.tenantId;
 
-    console.log(user);
     userActual = user;
-    // userEmailVerification = emailVerified;
+    console.log('user', userActual);
+
+    // authInitPromise = Promise.resolve(user);
   } else {
     // User is signed out
     userActual = undefined;
-    // userEmailVerification = undefined;
+    // authInitPromise.resolve(undefined);
   }
 });
 
-export const userState = () => userActual;
+export const waitForAuthLoad = () => authLoadPromise;
 
-// export const userEmailVerified = () => userEmailVerification;
+export const getUserPromise = () => authLoadPromise;
+
+export const userState = () => userActual;
 
 export const signInFirebase = (email, password) =>
   // eslint-disable-next-line implicit-arrow-linebreak
@@ -101,15 +91,8 @@ export const logInFirebase = (email, password) => signInWithEmailAndPassword(aut
 export const logout = () => signOut(auth).then(() => {
 });
 
-// Envía el vínculo de autenticación al correo electrónico del usuario
-
-export const emailVerification = (email) => sendSignInLinkToEmail(auth, email, actionCodeSettings)
+export const emailVerification = () => sendEmailVerification(auth.currentUser)
   .then(() => {
-    // The link was successfully sent. Inform the user.
-    // Save the email locally so you don't need to ask the user for it again
-    // if they open the link on the same device.
-    window.localStorage.setItem('emailForSignIn', email);
+    // Email verification sent!
     // ...
   });
-
-  

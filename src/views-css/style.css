@@ -6,19 +6,8 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     width: 100%; */
-
     background-image: url(https://www.ocu.org/-/media/ocu/images/home/vivienda%20y%20energia/energia%20renovable/hub_headerimage_v2.png?rev=70b9963a-74a8-4b0b-b93b-4f25ed81ed98&hash=2AC058B9B4A185A599B87F51658D18FC);
-   
-    /* background-image: url(https://www.sostenibilidad.com/media/815869/mundo-preparado-energias-renovables.jpg?anchor=center&mode=crop&width=420&height=320&rnd=); */
-    /* background-image: url(https://wallpaperstock.net/wallpapers/thumbs1/13506.jpg); */
-    /* background-image: url(https://wallpaperstock.net/si%C3%A9ntelo-excepcional-verde-wallpapers_2988_1600x1200.jpg); */
-    /* background-image: url(https://i.pinimg.com/564x/0f/cc/9a/0fcc9abc307ca8088c02c0f17330fec3.jpg); */
-    /* background-image: url(https://www.10wallpaper.com/wallpaper/1366x768/1408/fresh_green_leaves_of_plants_Wallpaper_07_1366x768.jpg); */
-    /* background-image: url(https://www.expoknews.com/wp-content/uploads/2019/05/5-formas-en-que-las-energias-renovables-estan-acelerando-el-cambio.jpg); */
-    /* background-image: url(https://static1.abc.es/media/economia/2021/10/10/energias_renovables_-k7K--1200x630@abc.jpg); */
-    /* background-image: url(); */
-    /* background-image: url(); */
-}      
+     }      
 /* .container{
     width:60%;
 }  */
@@ -35,9 +24,9 @@ body {
      margin: 0 auto;
  }
 
- .logInSigninEmail {
+ .logInSigninEmail, #welcome-wrapper{
     margin: auto;
     width: 30rem;
     max-width: 80%;
    }
- 
+  

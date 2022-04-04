@@ -12,6 +12,11 @@ const view =/* html */ `
   <div class="welcomeContent" id="welcomeContent">
     <div class="welcomeButton">
       <button type="button" class="logIn" id="login-button">Iniciar sesión</button>
+      <div class="separador">
+          <div class='linea-uno'></div>
+          <p class='signinWith'>Ó</p>
+          <div class='linea-dos'></div>
+       </div>
       <button type="button" class="singIn" id="signin-button">Registrarse</button>
     </div>
   </div>
@@ -19,28 +24,24 @@ const view =/* html */ `
 
 <style>
 #welcome-wrapper .text-welcome{
-  width: 70%;
-  margin: 15%;
+  width: 100%;
   background-image: url "/home/jhovanni/Descargas/fondoSustentable 1.png";
 }
 
 #welcome-wrapper .welcomeParagraph{
   font-size: 18px;
-
+  text-align: center;
 }
 #welcome-wrapper .welcomeContent{
-width: 70%;
-margin: 15%;
-
+width: 100%;
 }
 
 #welcome-wrapper .welcomeButton{
 display:block;
-margin-top: 130px;
+margin-top: 100px;
  }
 
- #welcome-wrapper .logIn,
- #welcome-wrapper .singIn{
+ #welcome-wrapper .logIn{
    width: 100%;
    border-radius: 10px;
    background: #74C3FC;
@@ -49,6 +50,21 @@ margin-top: 130px;
    padding: 10px;
    color: #070e1f;
    border: solid 2px #36a5f5;
+   box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
+
+}
+
+#welcome-wrapper .singIn{
+   width: 100%;
+   border-radius: 10px;
+   background: #daeff47a;
+   font-size: 18px;
+   margin-top:15px;
+   padding: 10px;
+   color: #070e1f;
+   border: solid 2px #74C3FC;
+   box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
+
 }
 
 #welcome-wrapper .logIn:hover,
@@ -59,6 +75,26 @@ margin-top: 130px;
     font-weight: bold;
     cursor: pointer;
 }
+
+
+#welcome-wrapper .separador{
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+#welcome-wrapper .linea-uno, #welcome-wrapper .linea-dos{
+  width: 40%;
+  border-top: 1px solid black;
+  margin-top: 50px;
+  padding:3px;
+}
+
+#welcome-wrapper .signinWith{
+ 
+  text-align: center;
+}
+
 </style>
 `;
 

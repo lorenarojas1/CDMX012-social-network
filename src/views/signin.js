@@ -246,9 +246,7 @@ function getFormData() {
 async function attemptSignIn(e) {
   e.preventDefault();
   const formData = getFormData();
-  console.log('resultado validacion', formData);
   const errors = validatorFormSignin(formData.email, formData.password, formData.confirmPassword);
-  console.log('resultado validacion jgfdfg', errors);
   // changeInputView(errors);
   document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
   document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
@@ -277,12 +275,10 @@ async function attemptSignIn(e) {
   try {
     await signInFirebase(formData.email, formData.password);
   } catch (error) {
-    console.log(error);
     // errorsFirebaseSignin(error);
     const messageError = document.getElementById('mensajeError');
     const errorEmail = document.getElementById('error-email');
 
-    console.log('errorcode', error.code, error.code === 'auth/email-already-in-use');
     if (error.code === 'auth/email-already-in-use') {
       errorEmail.innerHTML = 'El correo ya está registrado';
       document.getElementById('input-email').classList.add('invalid');
@@ -314,7 +310,7 @@ async function attemptSignIn(e) {
     // // navigateTo('/');
     // });
   }
-
+  navigateTo('/waitingRoom');
   // al ingresar la cuenta se tiene que actualizar la página para que cuente la validación
 }
 

@@ -31,6 +31,11 @@ const view = /* html */ `
     margin: 50px;
     text-align: center;
   }
+
+  .waitingRoom .contents h1{
+    margin-top: 0;
+    margin-bottom: 20px; 
+  }
     
    .waitingRoom #button-go{
     width:100%;
@@ -41,8 +46,16 @@ const view = /* html */ `
     color: #070e1f;
     border: solid 2px #36a5f5;
     box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
-   
-   }
+  }
+
+  .waitingRoom #error-verification{
+    color: red;
+    margin-top:5px;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+
+  }
 </style>
 `;
 // const messageError = document.getElementById('error-Message');

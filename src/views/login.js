@@ -188,7 +188,7 @@ async function attemptLogIn(e) {
 
     if (error.code === 'auth/user-not-found') {
       document.getElementById('inputEmail').classList.add('invalid');
-      errorEmail.innerHTML = 'El correo no está registrado' || '&nbsp';
+      errorEmail.innerHTML = 'El correo no está registrado';
       document.getElementById('passwordEmail').classList.add('invalid');
     } else if (error.code === 'auth/wrong-password') {
       document.getElementById('passwordEmail').classList.add('invalid');
@@ -205,8 +205,10 @@ async function attemptLogIn(e) {
   if (userState().emailVerified === true) {
     navigateTo('/homeUser');
   } else {
-    const errorEmail = document.getElementById('error-email');
-    errorEmail.innerHTML = 'El correo no está verificado';
+    navigateTo('/waitingRoom');
+
+    // const errorEmail = document.getElementById('error-email');
+    // errorEmail.innerHTML = 'El correo no está verificado';
   }
 }
 

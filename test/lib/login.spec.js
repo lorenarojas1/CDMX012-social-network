@@ -139,8 +139,7 @@ describe('Vista login', () => {
       }, 10);
     });
 
-    it('para emailVerified === false mostrar mensaje "El correo no está verificado"', (done) => {
-      const errorEmail = document.getElementById('error-email');
+    it('para emailVerified === false navegar a página de espera ', (done) => {
       validatorFormLogin.mockReturnValueOnce({ count: 0 });
       logInFirebase.mockReturnValueOnce(Promise.resolve({}));
       userState.mockReturnValueOnce({ emailVerified: false });
@@ -148,10 +147,25 @@ describe('Vista login', () => {
       document.querySelector('form').dispatchEvent(new Event('submit'));
 
       setTimeout(() => {
-        expect(errorEmail.innerHTML).toBe('El correo no está verificado');
+        expect(navigateTo).toHaveBeenCalledWith('/waitingRoom');
 
         done();
       }, 10);
     });
+
+    // it('para emailVerified === false mostrar mensaje "El correo no está verificado"', (done) => {
+    //   const errorEmail = document.getElementById('error-email');
+    //   validatorFormLogin.mockReturnValueOnce({ count: 0 });
+    //   logInFirebase.mockReturnValueOnce(Promise.resolve({}));
+    //   userState.mockReturnValueOnce({ emailVerified: false });
+
+    //   document.querySelector('form').dispatchEvent(new Event('submit'));
+
+    //   setTimeout(() => {
+    //     expect(errorEmail.innerHTML).toBe('El correo no está verificado');
+
+    //     done();
+    //   }, 10);
+    // });
   });
 });

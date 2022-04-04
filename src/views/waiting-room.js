@@ -69,15 +69,15 @@ const view = /* html */ `
 export default {
   render: () => view,
   afterRender: async () => {
-    console.log('afterRender:start');
     await waitForAuthLoad();
     const user = userState();
-    console.log('afterRender:user', user);
 
     const email = document.getElementById('email');
     email.innerHTML = user.email;
 
     document.getElementById('button-go').addEventListener('click', () => {
+      // window.location.reload();
+
       if (user.emailVerified === true) {
         navigateTo('/homeUser');
       } else {

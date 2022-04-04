@@ -1,8 +1,6 @@
-/* eslint-disable import/no-cycle */
-import { navigateTo } from '../router/router.js';
+import { navigateTo } from '../lib/navigator.js';
 
-export const welcome = () => {
-  const view = `
+const view =/* html */ `
 <section id="welcome-wrapper">
   <div class="text-welcome">
     <h1 class="title">Terranova</h1>
@@ -100,15 +98,10 @@ margin-top: 100px;
 </style>
 `;
 
-  const welcomeContainer = document.createElement('div');
-  welcomeContainer.innerHTML = view;
-  document.body.appendChild(welcomeContainer);
-
-  const bthLogin = document.getElementById('login-button');
-  bthLogin.addEventListener('click', () => navigateTo('/login'));
-
-  const bthSingin = document.getElementById('signin-button');
-  bthSingin.addEventListener('click', () => navigateTo('/signin'));
-
-  return welcomeContainer;
+export default {
+  render: () => view,
+  afterRender: () => {
+    document.getElementById('login-button').addEventListener('click', () => navigateTo('/login'));
+    document.getElementById('signin-button').addEventListener('click', () => navigateTo('/signin'));
+  },
 };

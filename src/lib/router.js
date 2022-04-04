@@ -5,7 +5,6 @@ import home from '../views/home.js';
 import homeUser from '../views/homeUser.js';
 import { navigateTo } from './navigator.js';
 import waitingRoom from '../views/waiting-room.js';
-import PostForm from '../views/Publications/PostForm.js';
 
 const routes = {
   '/': welcome,
@@ -14,7 +13,6 @@ const routes = {
   '/home': home,
   '/homeUser': homeUser,
   '/waitingRoom': waitingRoom,
-  '/postForm': PostForm,
 };
 
 let appContainer;

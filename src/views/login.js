@@ -1,84 +1,9 @@
-/* eslint-disable import/no-cycle */
 import { logInFirebase, userState } from '../lib/firebase.js';
-import { navigateTo } from '../router/router.js';
+import { navigateTo } from '../lib/navigator.js';
 import { validatorFormLogin } from '../lib/validator.js';
 // import { changeInputViewLogin, errorsFirebaseLogin } from '../lib/changeViewErrors.js';
 
-
-
-/**
- * Lee los inputs del formulario y regresa un objeto con sus valores
- * @returns valores del formulario
- */
-function getFormData() {
-  const emailInput = document.querySelector('input[name="email"]');
-  const passwordInput = document.querySelector('input[name="password"]');
-  return {
-    email: emailInput.value,
-    password: passwordInput.value,
-  };
-}
-/**
-   * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
-   * @param {event} e evento submit
-   */
-async function attemptLogIn(e) {
-  e.preventDefault();
-
-  const formData = getFormData();
-  const errors = validatorFormLogin(formData.email, formData.password);
-  // changeInputViewLogin(errors);
-  document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
-  document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
-
-  if (errors.email) {
-    document.getElementById('inputEmail').classList.add('invalid');
-  } else {
-    document.getElementById('inputEmail').classList.remove('invalid');
-  }
-  if (errors.password) {
-    document.getElementById('passwordEmail').classList.add('invalid');
-  } else {
-    document.getElementById('passwordEmail').classList.remove('invalid');
-  }
-  if (errors.count > 0) {
-    return;
-  }
-
-  try {
-    await logInFirebase(formData.email, formData.password);
-  } catch (error) {
-    // errorsFirebaseLogin(error);
-    const errorEmail = document.getElementById('error-email');
-    const errorPass = document.getElementById('error-password');
-    const messageError = document.getElementById('mensajeError');
-
-    if (error.code === 'auth/user-not-found') {
-      document.getElementById('inputEmail').classList.add('invalid');
-      errorEmail.innerHTML = 'El correo no está registrado' || '&nbsp';
-      document.getElementById('passwordEmail').classList.add('invalid');
-    } else if (error.code === 'auth/wrong-password') {
-      document.getElementById('passwordEmail').classList.add('invalid');
-      errorPass.innerHTML = 'Contraseña incorrecta';
-    } else {
-      messageError.innerHTML = 'No se pudo inicial  sesión';
-    // cuando son varios intentos fallidos por entrar a la cuenta,
-    // firebase marca error y bloquea temporalmente la cuenta
-    // code=auth/too-many-requests
-    }
-    console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
-    return;
-  }
-  if (userState().emailVerified === true) {
-    navigateTo('/homeUser');
-  } else {
-    const errorEmail = document.getElementById('error-email');
-    errorEmail.innerHTML = 'El correo no está verificado';
-  }
-}
-
-export const login = () => {
-  const view = /* html */ `
+const view = /* html */ `
 <section class="logInSigninEmail" id="login-wrapper">
     <div class="contenido-login">
     <form>
@@ -214,12 +139,81 @@ text-align: center;
      </style>
 `;
 
-  const loginContainer = document.createElement('div');
-  loginContainer.innerHTML = view;
-  document.body.appendChild(loginContainer);
+/**
+ * Lee los inputs del formulario y regresa un objeto con sus valores
+ * @returns valores del formulario
+ */
+function getFormData() {
+  const emailInput = document.querySelector('input[name="email"]');
+  const passwordInput = document.querySelector('input[name="password"]');
+  return {
+    email: emailInput.value,
+    password: passwordInput.value,
+  };
+}
+/**
+   * Realiza validaciones sobre el formulario e intenta hacer un registro si los campos son validos.
+   * @param {event} e evento submit
+   */
+async function attemptLogIn(e) {
+  e.preventDefault();
 
+  const formData = getFormData();
+  const errors = validatorFormLogin(formData.email, formData.password);
+  // changeInputViewLogin(errors);
+  document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
+  document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
 
-   document.getElementById('signin-link').addEventListener('click', () => navigateTo('/signin'));
-   document.querySelector('form').addEventListener('submit', attemptLogIn);
-  return loginContainer;
+  if (errors.email) {
+    document.getElementById('inputEmail').classList.add('invalid');
+  } else {
+    document.getElementById('inputEmail').classList.remove('invalid');
+  }
+  if (errors.password) {
+    document.getElementById('passwordEmail').classList.add('invalid');
+  } else {
+    document.getElementById('passwordEmail').classList.remove('invalid');
+  }
+  if (errors.count > 0) {
+    return;
+  }
+
+  try {
+    await logInFirebase(formData.email, formData.password);
+  } catch (error) {
+    // errorsFirebaseLogin(error);
+    const errorEmail = document.getElementById('error-email');
+    const errorPass = document.getElementById('error-password');
+    const messageError = document.getElementById('mensajeError');
+
+    if (error.code === 'auth/user-not-found') {
+      document.getElementById('inputEmail').classList.add('invalid');
+      errorEmail.innerHTML = 'El correo no está registrado' || '&nbsp';
+      document.getElementById('passwordEmail').classList.add('invalid');
+    } else if (error.code === 'auth/wrong-password') {
+      document.getElementById('passwordEmail').classList.add('invalid');
+      errorPass.innerHTML = 'Contraseña incorrecta';
+    } else {
+      messageError.innerHTML = 'No se pudo inicial  sesión';
+    // cuando son varios intentos fallidos por entrar a la cuenta,
+    // firebase marca error y bloquea temporalmente la cuenta
+    // code=auth/too-many-requests
+    }
+    console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
+    return;
+  }
+  if (userState().emailVerified === true) {
+    navigateTo('/homeUser');
+  } else {
+    const errorEmail = document.getElementById('error-email');
+    errorEmail.innerHTML = 'El correo no está verificado';
+  }
+}
+
+export default {
+  render: () => view,
+  afterRender: () => {
+    document.getElementById('signin-link').addEventListener('click', () => navigateTo('/signin'));
+    document.querySelector('form').addEventListener('submit', attemptLogIn);
+  },
 };

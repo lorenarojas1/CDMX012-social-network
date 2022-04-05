@@ -69,13 +69,12 @@ export default {
     email.innerHTML = user.email;
 
     document.getElementById('button-go').addEventListener('click', () => {
-      // window.location.reload();
-
       if (user.emailVerified === true) {
         navigateTo('/homeUser');
       } else {
-        const messageError = document.getElementById('error-verification');
-        messageError.innerHTML = 'Aun no verificas tu correo';
+        window.location.reload();
+        // const messageError = document.getElementById('error-verification');
+        // messageError.innerHTML = 'Aun no verificas tu correo';
       }
     });
   },

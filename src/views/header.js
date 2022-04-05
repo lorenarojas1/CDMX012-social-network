@@ -3,6 +3,7 @@ export function header() {
   const headerPage = document.createElement('header');
   headerPage.classList.add('headerfixed');
   headerPage.classList.add('header');
+  headerPage.classList.add('wall-container');
 
   // INFORMACIÓN GENERAL DEL PERFIL DEL USUARIO
   const profileUser = document.createElement('nav');

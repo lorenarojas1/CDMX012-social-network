@@ -7,7 +7,7 @@ import { navigateTo } from '../lib/navigator.js';
 export const Publication = () => {
     const user = userState();
     const view = `
-    <div class="addPublication">
+    <div class="addPublication wall-container">
         <div class="information-user">
             <img class="userimg" src="../../ima/src/image/user/3.png">
             <p class= "getemail">${user ? user.email : ''}</p>

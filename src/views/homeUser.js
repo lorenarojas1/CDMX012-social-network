@@ -36,6 +36,7 @@ export default {
 }; */
 export const homeUser = () => {
   const home = document.createElement('div');
+  home.classList.add('wall-container');
 
   home.appendChild(Navbar());
 

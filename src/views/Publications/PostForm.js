@@ -10,11 +10,9 @@ import { idPostEdit, editStatus, editPost } from '../Publications/RendPosts.js';
 import { navigateTo } from '../../lib/navigator.js';
 
 export const PostForm = () => {
-    console.log('inicializando postform');
     const user = userState();
-    console.log('inicializando postform', user);
     const viewInfo = `
-<div id="addPublication">
+<div id="addPublication" class="wall-container">
     <div class= "form-Background">
     <div class="information-user">
     <img class="userimg" src="./src/image/user/3.png">

@@ -24,6 +24,7 @@ export const RendPosts = () => {
     const user = userState();
     const posts = document.createElement('div');
     posts.classList.add('container-posts');
+    posts.classList.add('wall-container');
 
     onGetPost((querySnapshot) => {
         posts.innerHTML = '';

@@ -10,7 +10,7 @@ import { navigateTo } from '../lib/navigator.js';
 export const Navbar = () => {
 
     const template = `
-    <nav>
+    <nav class="wall-container">
     <div class="logo-nav">
         <img id='clickLogo'class="logo-nav" src="./src/image/icon-terranova.png" alt="">
     </div>

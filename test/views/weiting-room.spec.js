@@ -1,45 +1,43 @@
 /**
 * @jest-environment jsdom
 */
-// import { navigateTo } from '../../src/lib/navigator.js';
+/* eslint-disable jest/no-focused-tests */
+import { navigateTo } from '../../src/lib/navigator.js';
 import { waitForAuthLoad, userState } from '../../src/lib/firebase.js';
 import waitingRoom from '../../src/views/waiting-room.js';
 
 jest.mock('../../src/lib/firebase.js');
+jest.mock('../../src/lib/navigator.js');
 
 describe('Vista waitingRoom', () => {
   beforeEach(() => {
     // rendereza vista HTML
     document.body.innerHTML = waitingRoom.render();
-    // iniciar listener de la vista
-    waitingRoom.afterRender();
   });
 
   describe('despues del afterRender', () => {
-    it('mostra en vista email del usuario', (done) => {
+    it('mostrar en vista email del usuario', (done) => {
       const email = document.getElementById('email');
       waitForAuthLoad.mockReturnValueOnce(Promise.resolve({}));
       userState.mockReturnValueOnce({ email: 'hgsffdfsh' });
+
+      waitingRoom.afterRender();
+
       setTimeout(() => {
         expect(email.innerHTML).toBe('hgsffdfsh');
         done();
       }, 50);
     });
 
-    // eslint-disable-next-line max-len
-    // it('al hacer click en el boton continuar, para emailVerified === true navegar al muro principal ', (done) => {
-    //   const email = document.getElementById('email');
+    fit('al hacer click en el boton continuar, para emailVerified === true navegar al muro principal ', async () => {
+      waitForAuthLoad.mockReturnValueOnce(Promise.resolve({}));
+      userState.mockReturnValueOnce({ emailVerified: true });
+      waitingRoom.afterRender();
+      await waitForAuthLoad;
 
-    //   waitForAuthLoad.mockReturnValueOnce(Promise.resolve({}));
-    //   userState.mockReturnValueOnce({ emailVerified: true });
+      document.getElementById('button-go').click();
 
-    //   document.getElementById('button-go').click();
-
-    //   setTimeout(() => {
-    //     expect(navigateTo).toHaveBeenCalledWith('/homeUser');
-
-    //     done();
-    //   }, 10);
-    // });
+      expect(navigateTo).toHaveBeenCalledWith('/homeUser');
+    });
   });
 });

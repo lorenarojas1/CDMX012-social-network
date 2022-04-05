@@ -58,13 +58,6 @@ const view = /* html */ `
   }
 </style>
 `;
-// const messageError = document.getElementById('error-Message');
-
-// function emailVerified() {
-//   if (userState().emailVerified !== true) {
-//     messageError.innerHTML = 'correo no verificado';
-//   } else { console.log('error'); }
-// }
 
 export default {
   render: () => view,

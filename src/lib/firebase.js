@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import {
   initializeApp,
   getAnalytics,
@@ -11,13 +12,12 @@ import {
 } from './firebase-import.js';
 
 const firebaseConfig = {
-
-  apiKey: 'AIzaSyBV1upmSkvZp-qyFv_0YRBVJb-2luXPivQ',
-  authDomain: 'data2-64c71.firebaseapp.com',
-  projectId: 'data2-64c71',
-  storageBucket: 'data2-64c71.appspot.com',
-  messagingSenderId: '914295642551',
-  appId: '1:914295642551:web:3aaab72cfb317c0d233032',
+  apiKey: 'AIzaSyAxjhtM71_9a2ybvzEzRiPQLZdBbjPacAs',
+  authDomain: 'data3-4894f.firebaseapp.com',
+  projectId: 'data3-4894f',
+  storageBucket: 'data3-4894f.appspot.com',
+  messagingSenderId: '541738057068',
+  appId: '1:541738057068:web:cedceed7bc3bf73bd6c749',
 
 };
 
@@ -26,7 +26,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 console.log(analytics);
 
-const auth = getAuth();
+export const auth = getAuth();
 // console.log('que tiene auth?', auth);
 
 // observador de estado de autenticación y obtén datos del usuario

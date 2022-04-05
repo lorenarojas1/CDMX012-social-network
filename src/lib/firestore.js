@@ -9,8 +9,8 @@ import {
   onSnapshot,
   collection,
   addDoc,
-  // query,
-  // where,
+  arrayUnion,
+  arrayRemove,
 } from './firebase-import.js';
 
 import initApp from './initApp.js';
@@ -44,13 +44,11 @@ export const updatePost = (id, updatedPost) => updateDoc(doc(db, 'posts', id), u
 
 export const likePost = (postId) => {
   const email = auth.currentUser.email;
-  return firebase.firestore().collection('posts').doc(postId).update({
-    likes: firebase.firestore.FieldValue.arrayUnion(email),
-  });
+  const post = doc(db, 'posts', postId);
+  return updateDoc(post, { likes: arrayUnion(email) });
 };
 export const unLikePost = (postId) => {
   const email = auth.currentUser.email;
-  return firebase.firestore().collection('posts').doc(postId).update({
-    likes: firebase.firestore.FieldValue.arrayRemove(email),
-  });
+  const post = doc(db, 'posts', postId);
+  return updateDoc(post, { likes: arrayRemove(email) });
 };

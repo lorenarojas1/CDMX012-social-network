@@ -9,7 +9,7 @@ import { userState } from '../../lib/firebase.js';
 import { idPostEdit, editStatus, editPost } from '../Publications/RendPosts.js';
 import { navigateTo } from '../../lib/navigator.js';
 
-export const PostForm = () => {
+const PostForm = () => {
     const user = userState();
     const viewInfo = `
 <div id="addPublication" class="wall-container">
@@ -22,7 +22,7 @@ export const PostForm = () => {
         <label for="review"></label>
         <textarea class = "inputpost" type="text" id="review" placeholder= "¿Qué estás pensando?" ></textarea Required>
         <div class="error-formPost" id="postMesseges"></div>
-        <label for="rating">Hasgtags</label>
+        <label class="hastags-label" for="rating"># Hasgtags:</label>
         <input class = "inputHash" type="texto" id="rating" Required>
 
         <button class="btnPost" id="btnAddPoster" type="submit">Publicar</button>
@@ -31,6 +31,7 @@ export const PostForm = () => {
 </div>
 `;
 const posts = document.createElement('div');
+posts.classList.add('wall-container');
 posts.appendChild(Navbar());
 
 const contentPost = document.createElement('div');
@@ -53,11 +54,11 @@ if (!editStatus) {
     formPost.addEventListener('submit', async(event) => {
         event.preventDefault();
         try {
-            console.log('savepost', rating.value, review.value, user, dateToday);
+            // console.log('savepost', rating.value, review.value, user, dateToday);
             await savePost(rating.value, review.value, user.email, dateToday);
             navigateTo('/homeUser');
         } catch (error) {
-            console.error('savepost', error);
+            // console.error('savepost', error);
             errorMessage.innerHTML = '&#x02716'.concat(' ', error.message);
         }
     });

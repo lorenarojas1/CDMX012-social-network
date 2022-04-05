@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
@@ -246,9 +247,9 @@ function getFormData() {
 async function attemptSignIn(e) {
   e.preventDefault();
   const formData = getFormData();
-  console.log('resultado validacion', formData);
+  // console.log('resultado validacion', formData);
   const errors = validatorFormSignin(formData.email, formData.password, formData.confirmPassword);
-  console.log('resultado validacion jgfdfg', errors);
+  // console.log('resultado validacion jgfdfg', errors);
   // changeInputView(errors);
   document.getElementById('error-email').innerHTML = errors.email || '&nbsp';
   document.getElementById('error-password').innerHTML = errors.password || '&nbsp';
@@ -277,7 +278,7 @@ async function attemptSignIn(e) {
   try {
     await signInFirebase(formData.email, formData.password);
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     // errorsFirebaseSignin(error);
     const messageError = document.getElementById('mensajeError');
     const errorEmail = document.getElementById('error-email');
@@ -290,7 +291,7 @@ async function attemptSignIn(e) {
       document.getElementById('input-confirm-password').classList.add('invalid');
     } else {
       messageError.innerHTML = 'No se pudo realizar el registro';
-      console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
+      // console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
     }
     return;
   }
@@ -299,7 +300,7 @@ async function attemptSignIn(e) {
     try {
       await emailVerification();
     } catch (err) {
-      console.error('manejar error por no poder enviar email', err);
+      // console.error('manejar error por no poder enviar email', err);
       // return;
     }
 

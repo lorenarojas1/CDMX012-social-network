@@ -34,7 +34,7 @@ import { RendPosts } from './Publications/RendPosts.js';
 export default {
   renderElements: () => homeUser(),
 }; */
-export const homeUser = () => {
+const homeUser = () => {
   const home = document.createElement('div');
   home.classList.add('wall-container');
 

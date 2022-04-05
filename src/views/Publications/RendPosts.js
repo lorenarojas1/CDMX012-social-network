@@ -50,8 +50,8 @@ export const RendPosts = () => {
                     </div>
                     <div class='texticonspost'>
                     <div class= 'iconDIV-like'>
-                         <img class='icon-like btn-like' id='likeIcon${post.id}' data-id='${post.id}'  src='${likedByUser ? './src/image/iconPost/heart.svg' : './src/image/iconPost/corazon vacio.png'}'><span>${countLikes === 0 ? '' : countLikes}</span></img>
-                    </div>    
+                        <img class='icon-like btn-like' id='likeIcon${post.id}' data-id='${post.id}'  src='${likedByUser ? './src/image/iconPost/heart.svg' : './src/image/iconPost/corazon vacio.png'}'><span>${countLikes === 0 ? '' : countLikes}</span></img>
+                    </div>
                         <div class='delete-edit' id='user-buttons-${post.id}'>
                         <img data-id='${post.id}' class='icon-post icon-delete' src='./src/image/iconPost/deletePost.svg'>
                         <img data-id='${post.id}' class='icon-post icon-edit' src='./src/image/iconPost/editPost.svg'>

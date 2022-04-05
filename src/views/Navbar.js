@@ -4,25 +4,49 @@
 /* eslint-disable space-before-function-paren */
 /* eslint-disable indent */
 /* eslint-disable import/no-cycle */
- import { logout } from '../lib/firebase.js';
+import { logout, userState } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 
 export const Navbar = () => {
-
+    const user = userState();
     const template = `
     <nav class="wall-container">
-    <div class="logo-nav">
-        <img id='clickLogo'class="logo-nav" src="./src/image/icon-terranova.png" alt="">
-    </div>
-    </nav>
-    <div class="menu-nav">
-        <ul>
-        <li ><a id="logout" href=""> <div class="signOff"> <img class="icon-nav" src="./src/image/iconPost/signout.svg"> <p>Cerrar Sesión</p> </div> </a></li> 
-            <!-- <li><a href="#" id="profilePerfil"><img class= "icon-nav" src="./src/img/iconsusuario.png">Profile</a></li>-->
-        </ul>
-    </div>
-    
-`;
+        <div id="profile-principal" class="profile-initial">
+            <div class="control-principal">
+                <a href="#profile-principal" class="open">
+                    <span>Abril menu</span>
+                </a>
+                <a href="#" class="close">
+                    <span>Cerrar menu</span>
+                </a>
+            </div>
+            <div class="sidebarleft">
+                <img src="./src/image/user/3.png">
+                <p class= "getemail">${user ? user.email : ''}</p>
+                <p id="location">Ubicación</p>
+                <a id="viewall" href="#">Ver Perfil</a>
+            </div>
+        </div>
+        <div class="logo-nav">
+            <img id='clickLogo'class="logo-nav" src="./src/image/icon-terranova.png" alt="">
+        </div>
+        <nav id="navigation" class="icon-bar">
+            <div class="control-menu">
+                <a href="#navigation" class="open">
+                    <span>Abrir menu</span>
+                </a>
+                <a href="#" class="close">
+                    <span>Cerrar menu</span>
+                </a>
+            </div>
+            <div class="btnSignout">
+                <ul class="menu-nav">
+                    <li ><a id="logout" href=""> <div class="signOff"><img class="icon-nav" src="./src/image/Signout_black.svg"><p>Cerrar Sesión</p> </div></a></li>
+                </ul>
+            </div>
+        </nav>
+    </nav>`;
+
     const navBar = document.createElement('header');
     navBar.classList.add('header-div');
     navBar.innerHTML = template;

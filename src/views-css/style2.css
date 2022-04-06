@@ -36,10 +36,7 @@ nav.wall-container {
     width: 20px;
     margin-right: 5px;
 }
-.wall-container .menu-nav {
-    display: flex;
-    justify-content: flex-end;
-}
+
 .wall-container .signOff {
     width: fit-content;
     display: flex;
@@ -72,11 +69,19 @@ nav.wall-container {
     margin: 10px 10px;
     width: 40px;
 }
+.wall-container span {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 16px;
+}
 .wall-container .control-menu a span {
     display: inline-block;
     height: 40px;
     text-indent: -9999px;
     width: 40px;
+}
+.wall-container .close {
+	display:none;
 }
 .wall-container .control-menu .close {
     background-image: url("../image/close-menu.png");
@@ -109,11 +114,29 @@ nav.wall-container {
     height: 40px;
     transition: height 0.4s ease-in-out 0s, background-color 0.9s ease 0s; /*El menú cambia su altura y su color de fondo mediante una transición suavizada al abrirse*/
 }
-.wall-container .close {
-	display:none;
+.wall-container .control-principal .open {
+    background-image: url("../image/user/3.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 2px solid white;
+    display: block;
+    border-radius: 50%;
+}
+#profile-principal:target .open {
+    display: none;
 }
 .wall-container #navigation:target .open {
     display: none;
+}
+.wall-container .control-principal .close {
+    background-image: url("../image/close-menu.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: none;
+}
+#profile-principal:target .close {
+    display: block;
 }
 .wall-container #navigation:target .close {
         display: block;
@@ -130,21 +153,8 @@ nav.wall-container {
     text-indent: -9999px;
     width: 40px;
 }
-.wall-container .control-principal .close {
-    background-image: url("../image/close-menu.png");
-    background-position: center center;
-    background-repeat: no-repeat;
-    display: none;
-}
-.wall-container .control-principal .open {
-    background-image: url("../image/user/3.png");
-    background-size: 50px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 2px solid white;
-    display: block;
-    border-radius: 50%;
-}
+
+
 .wall-container .sidebarleft {
     clear: both;
     height: 0;
@@ -162,21 +172,16 @@ nav.wall-container {
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    z-index: 1;
 }
 #profile-principal:target .sidebarleft {
     background: #f0f0f0 none repeat scroll 0 0;
     height: fit-content;
     transition: height 0.4s ease-in-out 0s, background-color 0.9s ease 0s; /*El menú cambia su altura y su color de fondo mediante una transición suavizada al abrirse*/
 }
-.wall-container .close {
-    display: none;
-}
-#profile-principal:target .open {
-    display: none;
-}
-#profile-principal:target .close {
-    display: block;
-}
+
+
+
 .wall-container .sidebarleft img {
     width: 150px;
     height: 150px;
@@ -453,11 +458,7 @@ nav.wall-container {
     cursor: pointer;
     font-weight: bold;
 }
-.wall-container span {
-    margin-top: 4px;
-    margin-bottom: 4px;
-    font-size: 16px;
-}
+
 .wall-container .icon-post {
     width: 30px;
     height: 30px;

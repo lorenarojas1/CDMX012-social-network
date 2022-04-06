@@ -15,7 +15,7 @@ const PostForm = () => {
 <div id="addPublication" class="wall-container">
     <div class= "form-Background">
     <div class="information-user">
-    <img class="userimg" src="./src/image/user/3.png">
+    <img class="userimg" src="../image/user/3.png">
     <p class= "getemail">${user ? user.email : ''}</p>
     </div>
     <form id="publicationsForm" class="form">

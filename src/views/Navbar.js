@@ -21,14 +21,14 @@ export const Navbar = () => {
                 </a>
             </div>
             <div class="sidebarleft">
-                <img src="./src/image/user/3.png">
-                <p class= "getemail">${user ? user.email : ''}</p>
+                <img src="./views/image/user/3.png">
+                <p class="getemail">${user ? user.email : ''}</p>
                 <p id="location">Ubicación</p>
                 <a id="viewall" href="#">Ver Perfil</a>
             </div>
         </div>
         <div class="logo-nav">
-            <img id='clickLogo'class="logo-nav" src="./src/image/icon-terranova.png" alt="">
+            <img id='clickLogo'class="logo-nav" src="../image/icon-terranova.png" alt="">
         </div>
         <nav id="navigation" class="icon-bar">
             <div class="control-menu">
@@ -41,7 +41,7 @@ export const Navbar = () => {
             </div>
             <div class="btnSignout">
                 <ul class="menu-nav">
-                    <li ><a id="logout" href=""> <div class="signOff"><img class="icon-nav" src="./src/image/Signout_black.svg"><p>Cerrar Sesión</p> </div></a></li>
+                    <li ><a id="logout" href=""> <div class="signOff"><img class="icon-nav" src="../image/Signout_black.svg"><p>Cerrar Sesión</p> </div></a></li>
                 </ul>
             </div>
         </nav>
@@ -55,6 +55,7 @@ export const Navbar = () => {
                 e.preventDefault();
                 logout();
                 navigateTo('/');
+                alert('Cierre de sesión exito');
         });
 
     const clickLogo = navBar.querySelector('#clickLogo');

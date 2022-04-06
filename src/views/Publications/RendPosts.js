@@ -36,7 +36,7 @@ export const RendPosts = () => {
             posts.innerHTML += `
                 <div class='review-container'>
                     <div class='user-data'>
-                    <img class="userimg" src="./src/image/user/3.png">
+                    <img class="userimg" src="../image/user/3.png">
                         <p class='getemail'> ${post.user}</p>
                         <p class='getdata'>${post.date}</p>
                     </div>
@@ -53,8 +53,8 @@ export const RendPosts = () => {
                         <img class='icon-like btn-like' id='likeIcon${post.id}' data-id='${post.id}'  src='${likedByUser ? './src/image/iconPost/heart.svg' : './src/image/iconPost/corazon vacio.png'}'><span>${countLikes === 0 ? '' : countLikes}</span></img>
                     </div>
                         <div class='delete-edit' id='user-buttons-${post.id}'>
-                        <img data-id='${post.id}' class='icon-post icon-delete' src='./src/image/iconPost/deletePost.svg'>
-                        <img data-id='${post.id}' class='icon-post icon-edit' src='./src/image/iconPost/editPost.svg'>
+                        <img data-id='${post.id}' class='icon-post icon-delete' src='../image/iconPost/deletePost.svg'>
+                        <img data-id='${post.id}' class='icon-post icon-edit' src='../image/iconPost/editPost.svg'>
                         </div>
                     </div>
                     <!--<div class='error-message' id='postsMessages'></div>-->

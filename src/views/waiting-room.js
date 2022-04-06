@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { userState, waitForAuthLoad } from '../lib/firebase.js';
 import { navigateTo, reload } from '../lib/navigator.js';
 

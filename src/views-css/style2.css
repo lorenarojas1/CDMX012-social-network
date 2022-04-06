@@ -1,0 +1,498 @@
+.wall-container * {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* =============================== HEADER =============================== */
+.wall-container{
+    background-color: #DEEEF3;
+}
+header.wall-container {
+    max-width: 100%;
+    height: auto;
+}
+.wall-container .header-div {
+    height: fit-content;
+    background-color: #00aeef;
+    margin-bottom: 10px;
+    border-bottom: 2px solid gray;
+}
+nav.wall-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #00aeef;
+}
+.wall-container .logo-nav {
+    width: 90px;
+    height: auto;
+    cursor: pointer;
+    margin: 5px 0 5px 20px;
+}
+.wall-container .icon-nav {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+}
+.wall-container .menu-nav {
+    display: flex;
+    justify-content: flex-end;
+}
+.wall-container .signOff {
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wall-container .signOff p {
+    font-size: 15px;
+}
+.wall-container li {
+    list-style: none;
+    float: right;
+    padding: 10px;
+}
+
+/*================== MENU CERRAR SESION HEADER ==================*/
+.icon-bar a {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    text-decoration: none;
+}
+.wall-container .control-menu {
+    background-color: transparent;
+    background-position: center center;
+    border: 1px solid #fff;
+    display: block;
+    float: right;
+    height: 40px;
+    margin: 10px 10px;
+    width: 40px;
+}
+.wall-container .control-menu a span {
+    display: inline-block;
+    height: 40px;
+    text-indent: -9999px;
+    width: 40px;
+}
+.wall-container .control-menu .close {
+    background-image: url("../image/close-menu.png");
+    background-repeat: no-repeat;
+    display: none;
+    margin: 5px;
+}
+.wall-container .control-menu .open {
+    background-image: url("../image/open-menu.png");
+    background-repeat: no-repeat;
+    display: block;
+    margin: 5px;
+}
+.wall-container .menu-nav {
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease-in-out 0s, background-color 2s ease 0s; /*El menú cambia su altura y su color de fondo mediante una transición suavizada al voover a su estado unicial*/
+    width: fit-content;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    border: 1px solid #B7B7B7;
+    border-radius: 4px;
+    margin-top: 30px;
+}
+.wall-container #navigation:target ul.menu-nav {
+    background: #f0f0f0 none repeat scroll 0 0;
+    height: 40px;
+    transition: height 0.4s ease-in-out 0s, background-color 0.9s ease 0s; /*El menú cambia su altura y su color de fondo mediante una transición suavizada al abrirse*/
+}
+.wall-container .close {
+	display:none;
+}
+.wall-container #navigation:target .open {
+    display: none;
+}
+.wall-container #navigation:target .close {
+        display: block;
+}
+
+/*================== MENU PERFIL HEADER ==================*/
+.wall-container .control-principal {
+    margin: 10px;
+    width: 50px;
+}
+.wall-container .control-principal a span {
+    display: inline-block;
+    height: 40px;
+    text-indent: -9999px;
+    width: 40px;
+}
+.wall-container .control-principal .close {
+    background-image: url("../image/close-menu.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: none;
+}
+.wall-container .control-principal .open {
+    background-image: url("../image/user/3.png");
+    background-size: 50px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 2px solid white;
+    display: block;
+    border-radius: 50%;
+}
+.wall-container .sidebarleft {
+    clear: both;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.4s ease-in-out 0s, background-color 2s ease 0s; /*El menú cambia su altura y su color de fondo mediante una transición suavizada al voover a su estado unicial*/
+    width: fit-content;
+    background-color: #FFFFFF;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    border: 1px solid #B7B7B7;
+    border-radius: 4px;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+#profile-principal:target .sidebarleft {
+    background: #f0f0f0 none repeat scroll 0 0;
+    height: fit-content;
+    transition: height 0.4s ease-in-out 0s, background-color 0.9s ease 0s; /*El menú cambia su altura y su color de fondo mediante una transición suavizada al abrirse*/
+}
+.wall-container .close {
+    display: none;
+}
+#profile-principal:target .open {
+    display: none;
+}
+#profile-principal:target .close {
+    display: block;
+}
+.wall-container .sidebarleft img {
+    width: 150px;
+    height: 150px;
+    padding: 25px;
+    border-radius: 50%;
+}
+.wall-container .sidebarleft #sidename {
+    text-align: center;
+    position: relative;
+    top: -25px;
+    margin: 0px;
+    font-size: 16px;
+    font-weight: bold;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.wall-container .sidebarleft p {
+    text-align: center;
+    margin: 0px;
+    font-size: 12px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: #525252;
+}
+#location {
+    margin-bottom: 13px;
+}
+#viewall {
+    display: block;
+    margin: 0 auto;
+    font-size: 13px;
+    border-radius: 5px;
+    border: 0px;
+    outline: 0px;
+    background-color: #00aeef;
+    color: white;
+    text-decoration: none;
+    width: 80px;
+    text-align: center;
+    padding: 2px;
+    margin-bottom: 15px;
+}
+
+
+/*====CONTAINER====*/
+.wall-container .container-1 {
+    width: 100%;
+    min-height: 95vh;
+    margin-top: 0px;
+}
+.wall-container .acount {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 95vh;
+}
+
+/* ====PUBLICATION===== */
+
+.wall-container div.information-user {
+    display: flex;
+    align-items: center;
+}
+.wall-container img.userimg {
+    width: 50px;
+    height: 50px;
+}
+.wall-container .post {
+    display: flex;
+    width: 95%;
+    height: 310px;
+    padding: 5px;
+    margin: auto;
+}
+.wall-container .addPublication {
+    background-color: #ffffff;
+    border: 1px solid #b7b7b7;
+    border-radius: 10px;
+    box-shadow: 4px 1.5px 5px #999999;
+    height: 95px;
+    padding: 10px;
+    width: 90%;
+    margin: auto;
+    margin-bottom: 10px;
+}
+.wall-container .container-addpost {
+    display: flex;
+    padding: 10px;
+}
+.wall-container .text-publication {
+    width: 90%;
+    height: auto;
+    outline: none;
+    color: #968c83;
+}
+.wall-container .textaddpost {
+    color: black;
+    cursor: pointer;
+    font-size: 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-weight: bolder;
+}
+.wall-container .getemail {
+    font-size: 16px;
+    padding: 5px;
+    font-weight: bolder;
+    margin-top: -10px;
+}
+
+.wall-container .icon-plus {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+/*===ESTILO POST-FORM===*/
+.wall-container .form-Background {
+    background-color: #ffffff;
+    border-color: 1px solid #b7b7b7;
+    border-radius: 4px;
+    box-shadow: 4px 1.5px 5px #999999;
+    padding: 20px;
+    margin: 10px 25px;
+    height: 50%;
+}
+.wall-container .btnPost {
+    background-color: #74c3fc;
+    color: white;
+    box-shadow: 8px 8px 8px 0px rgba(50, 50, 50, 0.42);
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+.wall-container .btnPost:hover {
+    background-color: #2c85c5;
+    color: white;
+    box-shadow: 8px 8px 8px 0px rgba(50, 50, 50, 0.42);
+    width: 90%;
+    margin: auto;
+    margin-top: 20px;
+}
+.wall-container textarea {
+    height: 80px;
+    padding: 5px;
+}
+.wall-container .inputpost {
+    border: 1px solid gray;
+    font-size: 12px;
+    margin-bottom: 5px;
+    outline: none;
+    height: 70px;
+    background-color: white;
+    color: black;
+    width: 100%;
+}
+.wall-container .inputpost:hover {
+    border: 2px solid black;
+    color: rgb(5, 5, 90);
+}
+.wall-container .inputHash {
+    border: 1px solid gray;
+    font-size: 12px;
+    margin-bottom: 5px;
+    outline: none;
+    height: 30px;
+    background-color: white;
+    width: 100%;
+    padding: 5px;
+}
+.wall-container .hastags-label {
+    color: #42a5f5;
+}
+.wall-container .inputHash:hover {
+    border: 2px solid #42a5f5;
+    color: #42a5f5;
+    padding: 5px;
+}
+
+/* ============================================= RENDPOST ============================================== */
+.wall-container .container-posts {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    margin: auto;
+    align-items: center;
+    overflow-y: hidden;
+}
+.wall-container .getdata {
+    padding-left: 55px;
+    font-size: 12px;
+    color: #999999;
+    margin-top: 30px;
+    position: absolute;
+}
+
+.wall-container .review-container {
+    margin: 10px;
+    width: 95%;
+    height: fit-content;
+    background-color: #ffffff;
+    border: 1px solid #b7b7b7;
+    border-radius: 10px;
+    box-shadow: 4px 1.5px 5px #999999;
+    padding: 10px;
+}
+.wall-container .user-data {
+    display: flex;
+    background-color: #ffffff;
+    width: 100%;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+}
+.wall-container .container-review {
+    width: 90%;
+    background-color: white;
+    margin: auto;
+    margin-top: 5px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    line-height: 15px;
+    height: fit-content;
+}
+.wall-container .title-rating {
+    width: 100%;
+    height: 25%;
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    padding: 5px;
+    color: #42a5f5;
+    font-weight: bold;
+}
+#titlePost {
+    font-size: 16px;
+    font-weight: bold;
+}
+.wall-container .review-text {
+    width: 100%;
+    height: 75%;
+    background-color: #ffffff;
+    flex-direction: row;
+    font-size: 12px;
+    padding: 5px;
+}
+.wall-container .texticonspost {
+    display: flex;
+    width: 100%;
+    height: auto;
+    background-color: #ffffff;
+    color: grey;
+    margin: auto;
+    justify-content: space-between;
+}
+.wall-container .iconDIV-like {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wall-container .icon-like {
+    width: 25px;
+    height: 25px;
+    margin: 5px 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.wall-container span {
+    margin-top: 4px;
+    margin-bottom: 4px;
+    font-size: 16px;
+}
+.wall-container .icon-post {
+    width: 30px;
+    height: 30px;
+    margin: 5px;
+    cursor: pointer;
+}
+.wall-container .form {
+    display: flex;
+    flex-direction: column;
+}
+.wall-container label {
+    padding: 10px;
+}
+.wall-container input {
+    border: 2px solid #d6d2c4;
+    font-size: 16px;
+    margin-bottom: 5px;
+    outline: none;
+    height: 40px;
+    background-color: white;
+    color: #968c83;
+    width: 100%;
+}
+.wall-container button {
+    height: 40px;
+    background-color: #74c3fc;
+    color: #eeeeee;
+    border-radius: 15px;
+    border: solid 2px #36a5f5;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: 500;
+    font-size: 0.8em;
+    width: 312px;
+}
+/*================================================================================================================*/
+
+

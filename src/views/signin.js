@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
 import { signInFirebase, userState, emailVerification } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
@@ -199,7 +200,7 @@ async function attemptSignIn(e) {
       document.getElementById('input-confirm-password').classList.add('invalid');
     } else {
       messageError.innerHTML = 'No se pudo realizar el registro';
-      console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
+      // console.error(`No se pudo hacer registro, code=${error.code}, message=${error.message}`);
     }
     return;
   }
@@ -208,7 +209,8 @@ async function attemptSignIn(e) {
     try {
       await emailVerification();
     } catch (err) {
-      console.error('manejar error por no poder enviar email', err);
+      // console.error('manejar error por no poder enviar email', err);
+      // return;
     }
   }
   navigateTo('/waitingRoom');

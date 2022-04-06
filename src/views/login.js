@@ -192,7 +192,7 @@ async function attemptLogIn(e) {
     // firebase marca error y bloquea temporalmente la cuenta
     // code=auth/too-many-requests
     }
-    console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
+    // console.warn(`No se pudo iniciar sesión, code=${error.code}, message=${error.message}`);
     return;
   }
   if (userState().emailVerified === true) {

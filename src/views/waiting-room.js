@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { userState, waitForAuthLoad } from '../lib/firebase.js';
 import { navigateTo } from '../lib/navigator.js';
 
@@ -56,10 +57,10 @@ const view = /* html */ `
 export default {
   render: () => view,
   afterRender: async () => {
-    console.log('afterRender:start');
+    // console.log('afterRender:start');
     await waitForAuthLoad();
     const user = userState();
-    console.log('afterRender:user', user);
+    // console.log('afterRender:user', user);
 
     const email = document.getElementById('email');
     email.innerHTML = user.email;

@@ -67,7 +67,7 @@ async function signout() {
   try {
     await logout();
   } catch (error) {
-    console.error(`No se pudo cerrar sesión, code=${error.code}, message=${error.message}`);
+    // console.error(`No se pudo cerrar sesión, code=${error.code}, message=${error.message}`);
     // el usuario ya existe(personalizar los errores con firebase)
   }
 

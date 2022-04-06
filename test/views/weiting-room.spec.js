@@ -2,7 +2,7 @@
 * @jest-environment jsdom
 */
 /* eslint-disable jest/no-focused-tests */
-import { navigateTo } from '../../src/lib/navigator.js';
+import { navigateTo, reload } from '../../src/lib/navigator.js';
 import { waitForAuthLoad, userState } from '../../src/lib/firebase.js';
 import waitingRoom from '../../src/views/waiting-room.js';
 
@@ -29,7 +29,7 @@ describe('Vista waitingRoom', () => {
       }, 50);
     });
 
-    fit('al hacer click en el boton continuar, para emailVerified === true navegar al muro principal ', async () => {
+    it('al hacer click en el boton continuar, para emailVerified === true navegar al muro principal ', async () => {
       waitForAuthLoad.mockReturnValueOnce(Promise.resolve({}));
       userState.mockReturnValueOnce({ emailVerified: true });
       waitingRoom.afterRender();
@@ -38,6 +38,17 @@ describe('Vista waitingRoom', () => {
       document.getElementById('button-go').click();
 
       expect(navigateTo).toHaveBeenCalledWith('/homeUser');
+    });
+
+    it('al hacer click en el boton continuar, para emailVerified !== true recargar página ', async () => {
+      waitForAuthLoad.mockReturnValueOnce(Promise.resolve({}));
+      userState.mockReturnValueOnce({ emailVerified: false });
+      waitingRoom.afterRender();
+      await waitForAuthLoad;
+
+      document.getElementById('button-go').click();
+
+      expect(reload).toHaveBeenCalledTimes(1);
     });
   });
 });

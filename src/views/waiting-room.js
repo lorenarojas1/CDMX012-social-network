@@ -1,5 +1,5 @@
 import { userState, waitForAuthLoad } from '../lib/firebase.js';
-import { navigateTo } from '../lib/navigator.js';
+import { navigateTo, reload } from '../lib/navigator.js';
 
 const view = /* html */ `
 <section class="waitingRoom" id="waitingRoom-wrapper">
@@ -72,7 +72,8 @@ export default {
       if (user.emailVerified === true) {
         navigateTo('/homeUser');
       } else {
-        window.location.reload();
+        reload();
+
         // const messageError = document.getElementById('error-verification');
         // messageError.innerHTML = 'Aun no verificas tu correo';
       }

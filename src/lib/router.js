@@ -2,7 +2,6 @@
 import welcome from '../views/welcome.js';
 import signin from '../views/signin.js';
 import login from '../views/login.js';
-import home from '../views/home.js';
 import homeUser from '../views/homeUser.js';
 import { navigateTo } from './navigator.js';
 import waitingRoom from '../views/waiting-room.js';
@@ -12,7 +11,6 @@ const routes = {
   '/': welcome,
   '/signin': signin,
   '/login': login,
-  '/home': home,
   '/homeUser': homeUser,
   '/waitingRoom': waitingRoom,
   '/postForm': PostForm,

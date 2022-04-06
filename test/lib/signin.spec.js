@@ -6,7 +6,7 @@
 
 import { navigateTo } from '../../src/lib/navigator.js';
 import { validatorFormSignin } from '../../src/lib/validator.js';
-import { signInFirebase } from '../../src/lib/firebase.js';
+import { signInFirebase, userState, emailVerification } from '../../src/lib/firebase.js';
 import signin from '../../src/views/signin.js';
 
 jest.mock('../../src/lib/firebase.js');
@@ -87,6 +87,7 @@ describe('Vista signin', () => {
     it('valida los valores del formulario con firebase', (done) => {
       const email = 'ahgvjkgh';
       const password = '123456';
+      const messageError = document.getElementById('mensajeError');
       validatorFormSignin.mockReturnValueOnce({ count: 0 });
       signInFirebase.mockReturnValueOnce(Promise.reject(new Error()));
       document.getElementById('input-email').value = email;
@@ -94,12 +95,15 @@ describe('Vista signin', () => {
 
       document.querySelector('form').dispatchEvent(new Event('submit'));
 
-      expect(signInFirebase).toHaveBeenCalledTimes(1);
-      expect(signInFirebase).toHaveBeenCalledWith(email, password);
-      done();
+      setTimeout(() => {
+        expect(signInFirebase).toHaveBeenCalledTimes(1);
+        expect(signInFirebase).toHaveBeenCalledWith(email, password);
+        expect(messageError.innerHTML).toBe('No se pudo realizar el registro');
+        done();
+      }, 50);
     });
 
-    it('desplegar en vista errores de firebase por email', (done) => {
+    it('desplegar en vista, errores de firebase por email', (done) => {
       const emailInput = document.getElementById('input-email');
       const passwordInput = document.getElementById('input-password');
       const confirmPasswordInput = document.getElementById('input-confirm-password');
@@ -116,6 +120,22 @@ describe('Vista signin', () => {
       setTimeout(() => {
         expect(errorEmail.innerHTML).toBe('El correo ya está registrado');
         expect(emailInput.classList && passwordInput.classList && confirmPasswordInput.classList).toContain('invalid');
+        done();
+      }, 10);
+    });
+
+    it('para emailVerified === false enviar correo para verificar cuenta', (done) => {
+      validatorFormSignin.mockReturnValueOnce({ count: 0 });
+      signInFirebase.mockReturnValueOnce(Promise.resolve({}));
+      userState.mockReturnValueOnce({ emailVerified: false });
+      emailVerification.mockReturnValueOnce(Promise.resolve());
+
+      document.querySelector('form').dispatchEvent(new Event('submit'));
+
+      setTimeout(() => {
+        expect(emailVerification).toHaveBeenCalled();
+        expect(navigateTo).toHaveBeenCalledWith('/waitingRoom');
+
         done();
       }, 10);
     });

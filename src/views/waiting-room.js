@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { userState, waitForAuthLoad } from '../lib/firebase.js';
-import { navigateTo } from '../lib/navigator.js';
+import { navigateTo, reload } from '../lib/navigator.js';
 
 const view = /* html */ `
 <section class="waitingRoom" id="waitingRoom-wrapper">
@@ -32,6 +32,11 @@ const view = /* html */ `
     margin: 50px;
     text-align: center;
   }
+
+  .waitingRoom .contents h1{
+    margin-top: 0;
+    margin-bottom: 20px; 
+  }
     
    .waitingRoom #button-go{
     width:100%;
@@ -42,25 +47,24 @@ const view = /* html */ `
     color: #070e1f;
     border: solid 2px #36a5f5;
     box-shadow: 0 2px 2px rgba(0 0 0/ 0.15);
-   
-   }
+  }
+
+  .waitingRoom #error-verification{
+    color: red;
+    margin-top:5px;
+    font-size: 16px;
+    display: block;
+    width: 100%;
+
+  }
 </style>
 `;
-// const messageError = document.getElementById('error-Message');
-
-// function emailVerified() {
-//   if (userState().emailVerified !== true) {
-//     messageError.innerHTML = 'correo no verificado';
-//   } else { console.log('error'); }
-// }
 
 export default {
   render: () => view,
   afterRender: async () => {
-    // console.log('afterRender:start');
     await waitForAuthLoad();
     const user = userState();
-    // console.log('afterRender:user', user);
 
     const email = document.getElementById('email');
     email.innerHTML = user.email;
@@ -69,8 +73,10 @@ export default {
       if (user.emailVerified === true) {
         navigateTo('/homeUser');
       } else {
-        const messageError = document.getElementById('error-verification');
-        messageError.innerHTML = 'Aun no verificas tu correo';
+        reload();
+
+        // const messageError = document.getElementById('error-verification');
+        // messageError.innerHTML = 'Aun no verificas tu correo';
       }
     });
   },

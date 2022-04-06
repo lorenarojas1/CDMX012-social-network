@@ -10,3 +10,7 @@ export const signInFirebase = jest.fn();
 export const userState = jest.fn();
 
 export const emailVerification = jest.fn();
+
+export const logInFirebase = jest.fn();
+
+export const waitForAuthLoad = jest.fn();

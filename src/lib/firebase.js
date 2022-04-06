@@ -39,7 +39,6 @@ const authLoadPromise = new Promise((resolve) => {
 });
 
 onAuthStateChanged(auth, (user) => {
-  authLoadResolve();
   if (user) {
     // User is signed in, see docs for a list of available properties
     // https://firebase.google.com/docs/reference/js/firebase.User
@@ -66,9 +65,15 @@ onAuthStateChanged(auth, (user) => {
     userActual = undefined;
     // authInitPromise.resolve(undefined);
   }
+  authLoadResolve();
 });
 
 export const waitForAuthLoad = () => authLoadPromise;
+
+// export const getUser = async () => {
+//   await authLoadPromise;
+//   return userActual;
+// }
 
 export const getUserPromise = () => authLoadPromise;
 

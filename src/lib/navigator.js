@@ -23,3 +23,7 @@ export const navigateTo = (route) => {
 // Referencias
 // https://medium.com/altcampus/implementing-simple-spa-routing-using-vanilla-javascript-53abe399bf3c
 // https://dev.to/rishavs/making-a-single-page-app-in-ye-good-olde-js-es6-3eng
+
+export const reload = () => {
+  window.location.reload();
+};
